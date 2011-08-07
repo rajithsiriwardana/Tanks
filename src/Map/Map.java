@@ -28,6 +28,8 @@ public class Map {
     LinkedList<Stone> stones;
     //A list to store sea
     LinkedList<Water> sea;
+    //A list to store the bullets
+    LinkedList<Bullet> bullets;
 
     //to find out whether the game has started
     public Map() {
@@ -46,7 +48,7 @@ public class Map {
 
         stones = new LinkedList<Stone>();
 
-        //this.myPlayer=myPlayer;
+        bullets=new LinkedList<Bullet>();
 
 
 
