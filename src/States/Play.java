@@ -47,6 +47,7 @@ public class Play extends BasicGameState {
     private Image waterImage;
     private Image lpImage;
     private Image cpImage;
+    private Image bulletImage;
     //my player
     private Player myPlayer;
     private Image myPlayerImg;
@@ -86,6 +87,7 @@ public class Play extends BasicGameState {
             myPlayerImg = new Image("data/map/water.png");
             lpImage = new Image("data/map/LP.png");
             cpImage = new Image("data/map/coin.png");
+            bulletImage=new Image("data/map/bullet.png");
 
             //load player images
             up = new Image("data/sprites/up.png");
@@ -93,7 +95,7 @@ public class Play extends BasicGameState {
             left = new Image("data/sprites/left.png");
             right = new Image("data/sprites/right.png");
 
-            painter = new ElementPainter(map, brickImage, stoneImage, waterImage, myPlayerImg, myPlayer, lpImage, cpImage);
+            painter = new ElementPainter(map, brickImage, stoneImage, waterImage, myPlayerImg, myPlayer, lpImage, cpImage,bulletImage);
             painter.setPlayerImages(up, down, left, right);
 
             //load the map

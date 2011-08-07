@@ -41,6 +41,7 @@ public class ElementPainter {
     private Image waterImage;
     private Image lpImage;
     private Image cpImage;
+    private Image bulletImage;
     //players images
     private Image myPlayerImage;
     private Image up;
@@ -59,7 +60,7 @@ public class ElementPainter {
     //to draw graphics ( like strings)
     private Graphics graphics;
 
-    public ElementPainter(Map map, Image brickImage, Image stoneImage, Image waterImage, Image myPlayerImg, Player myPlayer, Image lpImage, Image cpImage) {
+    public ElementPainter(Map map, Image brickImage, Image stoneImage, Image waterImage, Image myPlayerImg, Player myPlayer, Image lpImage, Image cpImage,Image bullet) {
         this.map = map;
         this.brickImage = brickImage;
         this.stoneImage = stoneImage;
@@ -68,6 +69,7 @@ public class ElementPainter {
         this.myPlayerImage = myPlayerImg;
         this.lpImage = lpImage;
         this.cpImage = cpImage;
+        this.bulletImage=bullet;
 
         /*
          * For animation
@@ -585,7 +587,27 @@ public class ElementPainter {
      * draws bullets
      */
     private void drawBullet(Bullet bullet){
-        stoneImage.draw(bullet.getFloatX(),bullet.getFloatY());
+
+        if(bullet.getDirection()==0){
+            bulletImage.setRotation(0);
+         bulletImage.draw(bullet.getFloatX(),bullet.getFloatY());
+        }
+
+         else if(bullet.getDirection()==1){
+              bulletImage.setRotation(90);
+         bulletImage.draw(bullet.getFloatX(),bullet.getFloatY());
+
+         }
+         else if(bullet.getDirection()==2){
+              bulletImage.setRotation(180);
+         bulletImage.draw(bullet.getFloatX(),bullet.getFloatY());
+
+         }
+         else if(bullet.getDirection()==3){
+              bulletImage.setRotation(270);
+         bulletImage.draw(bullet.getFloatX(),bullet.getFloatY());
+
+         }
         
     }
 
