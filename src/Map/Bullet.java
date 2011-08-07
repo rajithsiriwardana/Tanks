@@ -62,20 +62,84 @@ public class Bullet {
 
 
 
+    /**
+     * return the current position of the bullet according to the direction
+     * @return
+     */
     public float getFloatX() {
 
-        //return the current postion
-        return initX+speedPerMilliS*(iniTime-System.currentTimeMillis());
+        float output=0f;
+
+        //if the bullet is headin north
+        if(direction==0){
+            output= initX;
+        }
+
+        //if the bullet is heading East
+         else if(direction==1){
+             output= initX-speedPerMilliS*(iniTime-System.currentTimeMillis());
+
+         }
+
+        //if the bullet is heading south
+         else if(direction==2){
+             output= initX;
+
+         }
+
+        //if the bullet is heading West
+         else if(direction==3){
+             output= initX+speedPerMilliS*(iniTime-System.currentTimeMillis());
+
+         }
+
+        return output;
+        
     }
 
+    /**
+     * Return the current tile x coordinate
+     */
 
+//    public int getX(){
+//
+//    }
+
+
+    /**
+     * return the current position of the bullet according to the direction
+     * @return
+     */
     public float getFloatY() {
-        return initY;
+        float output=0f;
+
+        //if the bullet is headin north
+        if(direction==0){
+            output= initY+speedPerMilliS*(iniTime-System.currentTimeMillis());
+        }
+
+        //if the bullet is heading East
+         else if(direction==1){
+             output= initY;
+
+         }
+
+        //if the bullet is heading south
+         else if(direction==2){
+             output= initY-speedPerMilliS*(iniTime-System.currentTimeMillis());
+
+         }
+
+        //if the bullet is heading West
+         else if(direction==3){
+             output= initY;
+
+         }
+
+        return output;
     }
 
-    public void setY(float y) {
-        this.initY = y;
-    }
+   
 
     public int getDirection() {
         return direction;
