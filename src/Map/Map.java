@@ -247,6 +247,15 @@ public class Map {
                 cp.markAsUnavailable();
             }
         }
+        
+        
+
+        //if the player has shot a bullet
+        if(player.hasShot()){
+
+            Bullet bullet=new Bullet(player.getPlayerX(), player.getPlayerY(), player.getPlayerDir());
+            bullets.add(bullet);
+        }
 
     }
 
@@ -344,5 +353,13 @@ public class Map {
      */
     public LinkedList<CoinPack> getCoinPacks() {
         return (LinkedList<CoinPack>) coinPacks.clone();
+    }
+
+    /**
+     * returns the bullets
+     */
+
+    public LinkedList<Bullet> getBullets(){
+        return bullets;
     }
 }

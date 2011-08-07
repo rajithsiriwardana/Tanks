@@ -11,9 +11,12 @@ package Map;
  */
 public class Bullet {
 
-    //stores the location of the bullet
-    private float x;
-    private float y;
+    //stores the initial location of the bullet
+    private float initX;
+    private float initY;
+
+    //direction of the bullet
+    private int direction;
 
     //stores the map drawn place
     private float mapX;
@@ -22,7 +25,14 @@ public class Bullet {
     //stores the tile size
     private float tileSize;
 
-    public Bullet(int intX, int intY) {
+    //bullet speed
+    private int speed;
+    private float speedPerMilliS;
+
+    //to keep track of the time that the bullet was created
+    private long iniTime;
+
+    public Bullet(int intX, int intY, int dir) {
 
         //map drawn locations
         mapX=0f;
@@ -32,29 +42,47 @@ public class Bullet {
         tileSize=35f;
 
         //set the bullet location in float
-        x=intX*tileSize+mapX;
-        y=intY*tileSize+mapY;
+        initX=intX*tileSize+mapX;
+        initY=intY*tileSize+mapY;
 
+        //set the location of the bullet
+        this.direction=dir;
+
+        //speed of the bullet(tiles per second)
+        speed=5;
+
+        //speed of the bullet(floats per milli second)
+        speedPerMilliS=(speed*tileSize)/1000;
+
+
+        //bullet created time
+        iniTime=System.currentTimeMillis();
     }
 
 
 
 
-    public float getX() {
-        return x;
+    public float getFloatX() {
+
+        //return the current postion
+        return initX+speedPerMilliS*(iniTime-System.currentTimeMillis());
     }
 
-    public void setX(float x) {
-        this.x = x;
-    }
 
-    public float getY() {
-        return y;
+    public float getFloatY() {
+        return initY;
     }
 
     public void setY(float y) {
-        this.y = y;
+        this.initY = y;
     }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    
+
 
 
 }

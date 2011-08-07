@@ -5,12 +5,14 @@
 package GUI;
 
 import Map.Brick;
+import Map.Bullet;
 import Map.CoinPack;
 import Map.LifePack;
 import Map.Map;
 import Map.Player;
 import Map.Stone;
 import Map.Water;
+import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import org.newdawn.slick.Graphics;
@@ -100,8 +102,13 @@ public class ElementPainter {
         this.graphics = graphics;
 
 
-//        this.graphics.setFont(uFont);
-//        this.graphics.drawString("TEST", 10f, 10f);
+        /*
+         * create an obstacle matrix
+         *
+         * This will be used later to check obstacles when drawing the bullet
+         */
+        int[][] obsMat=new int[20][20];
+
 
         //Draw bricks
         LinkedList<Brick> bricks = map.getBricks();
@@ -118,6 +125,8 @@ public class ElementPainter {
 
                 if (!brick.isDestroyed()) {
                     drawBrick(brick);
+                    //mark the location as occupied
+                    obsMat[brick.getxLocation()][brick.getyLocation()]=1;
                 }
 
 
@@ -149,6 +158,9 @@ public class ElementPainter {
             while ((stone) != null) {
 
                 drawStone(stone);
+                
+                //mark the location as occupied
+                obsMat[stone.getxLocation()][stone.getyLocation()]=1;
 
 
                 if (stoneIter.hasNext()) {
@@ -269,6 +281,8 @@ public class ElementPainter {
             while ((player) != null) {
 
                 if (player.isAlive()) {
+                    //mark the location as occupied
+                    obsMat[player.getPlayerX()][player.getPlayerY()]=1;
                     drawPlayer(player);
                 }
 
@@ -297,12 +311,50 @@ public class ElementPainter {
             //draw only if the player is alive
             if (myPlayer.isAlive()) {
 
+                //mark the location as occupied
+                obsMat[myPlayer.getPlayerX()][myPlayer.getPlayerY()]=1;
                 drawPlayer(myPlayer);
             }
 
         }
 
+        /*
+         * Draw the bullets
+         */
 
+        //Draw players
+        LinkedList<Bullet> bullets = map.getBullets();
+
+        ListIterator bulletItr = bullets.listIterator();
+
+        Bullet bullet;
+
+        try {
+
+            if (bulletItr.hasNext()) {
+                bullet = (Bullet) bulletItr.next();
+
+                while (bullet != null) {
+                    drawBullet(bullet);
+
+                    if (bulletItr.hasNext()) {
+                        bullet = (Bullet) bulletItr.next();
+                    } else {
+
+                        break;
+                    }
+                }
+
+
+
+            }
+
+        } catch (ConcurrentModificationException ex) {
+            System.out.println("Exception in bullet iterator :'(");
+        }
+
+        
+        
 
 
     }
@@ -487,6 +539,13 @@ public class ElementPainter {
     private void drawStone(Stone stone) {
         stoneImage.draw(converter(stone.getxLocation()), converter(stone.getyLocation()));
 
+    }
+
+    /**
+     * draws bullets
+     */
+    private void drawBullet(Bullet bullet){
+        stoneImage.draw(bullet.getFloatX(),bullet.getFloatY());
     }
 
     /**
