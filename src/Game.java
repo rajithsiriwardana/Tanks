@@ -2,7 +2,6 @@
 import Controlling.StringDecoder;
 import Controlling.StringGenerator;
 import Map.Map;
-import Map.Player;
 import Networking.Receiver;
 import States.GameOver;
 import States.Play;

@@ -9,7 +9,6 @@ import Controlling.StringGenerator;
 import GUI.ElementPainter;
 import Map.Map;
 import Map.Player;
-import Networking.Receiver;
 import java.awt.Font;
 import java.util.logging.Level;
 import java.util.logging.Logger;

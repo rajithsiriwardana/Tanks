@@ -8,7 +8,6 @@ import Map.Brick;
 import Map.CoinPack;
 import Map.LifePack;
 import Map.Map;
-import Map.MapElement;
 import Map.Player;
 import Map.Stone;
 import Map.Water;
@@ -17,9 +16,7 @@ import java.util.ListIterator;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
-import java.awt.Font;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.UnicodeFont;
 
 /**
  *
