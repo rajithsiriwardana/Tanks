@@ -4,6 +4,7 @@
  */
 package Map;
 
+import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
@@ -138,6 +139,45 @@ public class Map {
         } catch (NoSuchElementException ex) {
             //System.out.println("Brick list is empty. Can't set the Health");
         }
+
+        /*
+         * Bullet cleanup was added here because this method gets called at
+         * every global update.
+         */
+
+         ListIterator bullIt=bullets.listIterator();
+         Bullet bullet;
+
+          try {
+
+              if (bullIt.hasNext()) {
+                bullet = (Bullet) bullIt.next();
+
+                while (bullet != null) {
+
+                    //if the bullet is out of the x coodinates
+                    if(bullet.getX()>20 || bullet.getX()<0 || bullet.getY()>20 ||bullet.getY()<0){
+                        System.out.println("bullet deleted @"+bullet.getX()+", "+bullet.getY());
+                        bullIt.remove();
+
+                    }
+
+
+
+                    if (bullIt.hasNext()) {
+                        bullet = (Bullet) bullIt.next();
+                    } else {
+
+                        break;
+                    }
+                }
+
+              }
+
+          } catch (ConcurrentModificationException ex) {
+            System.out.println("Exception in bullet iterator :'(");
+        }
+
 
 
 

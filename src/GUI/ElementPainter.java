@@ -546,6 +546,7 @@ public class ElementPainter {
      */
     private void drawBullet(Bullet bullet){
         stoneImage.draw(bullet.getFloatX(),bullet.getFloatY());
+        
     }
 
     /**

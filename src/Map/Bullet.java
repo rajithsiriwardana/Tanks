@@ -101,9 +101,36 @@ public class Bullet {
      * Return the current tile x coordinate
      */
 
-//    public int getX(){
-//
-//    }
+    public int getX(){
+
+        int output=0;
+
+        //if the bullet is headin north
+        if(direction==0){
+            output= (int) (initX / tileSize);
+        }
+
+        //if the bullet is heading East
+         else if(direction==1){
+             output= (int) ((initX - speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize);
+
+         }
+
+        //if the bullet is heading south
+         else if(direction==2){
+             output= (int) (initX / tileSize);
+
+         }
+
+        //if the bullet is heading West
+         else if(direction==3){
+             output= (int) ((initX + speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize);
+
+         }
+
+        return output;
+
+    }
 
 
     /**
@@ -133,6 +160,36 @@ public class Bullet {
         //if the bullet is heading West
          else if(direction==3){
              output= initY;
+
+         }
+
+        return output;
+    }
+
+    public int getY(){
+
+        int output=0;
+
+        //if the bullet is headin north
+        if(direction==0){
+            output= (int) ((initY + speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize);
+        }
+
+        //if the bullet is heading East
+         else if(direction==1){
+             output= (int) initY;
+
+         }
+
+        //if the bullet is heading south
+         else if(direction==2){
+             output= (int) ((initY - speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize);
+
+         }
+
+        //if the bullet is heading West
+         else if(direction==3){
+             output= (int) initY;
 
          }
 
