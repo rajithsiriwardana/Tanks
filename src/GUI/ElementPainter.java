@@ -586,29 +586,25 @@ public class ElementPainter {
     /**
      * draws bullets
      */
-    private void drawBullet(Bullet bullet){
+    private void drawBullet(Bullet bullet) {
 
-        if(bullet.getDirection()==0){
+        if (bullet.getDirection() == 0) {
             bulletImage.setRotation(0);
-         bulletImage.draw(bullet.getFloatX(),bullet.getFloatY());
+            bulletImage.draw(bullet.getFloatX(), bullet.getFloatY());
+        } else if (bullet.getDirection() == 1) {
+            bulletImage.setRotation(90);
+            bulletImage.draw(bullet.getFloatX(), bullet.getFloatY());
+
+        } else if (bullet.getDirection() == 2) {
+            bulletImage.setRotation(180);
+            bulletImage.draw(bullet.getFloatX(), bullet.getFloatY());
+
+        } else if (bullet.getDirection() == 3) {
+            bulletImage.setRotation(270);
+            bulletImage.draw(bullet.getFloatX(), bullet.getFloatY());
+
         }
 
-         else if(bullet.getDirection()==1){
-              bulletImage.setRotation(90);
-         bulletImage.draw(bullet.getFloatX(),bullet.getFloatY());
-
-         }
-         else if(bullet.getDirection()==2){
-              bulletImage.setRotation(180);
-         bulletImage.draw(bullet.getFloatX(),bullet.getFloatY());
-
-         }
-         else if(bullet.getDirection()==3){
-              bulletImage.setRotation(270);
-         bulletImage.draw(bullet.getFloatX(),bullet.getFloatY());
-
-         }
-        
     }
 
     /**
