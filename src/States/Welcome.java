@@ -6,14 +6,9 @@ package States;
 
 import Controlling.StringDecoder;
 import Controlling.StringGenerator;
-import com.sun.xml.internal.fastinfoset.Decoder;
 import java.awt.BorderLayout;
-import java.awt.Frame;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.plaf.basic.BasicSplitPaneUI.BasicHorizontalLayoutManager;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
