@@ -158,7 +158,7 @@ public class Map {
                     //if the bullet is out of the x coodinates
                     
                     if(bullet.getX()>20 || bullet.getX()<0 || bullet.getY()>20 ||bullet.getY()<0){
-                        System.out.println("bullet deleted @"+bullet.getX()+", "+bullet.getY());
+                       // System.out.println("bullet deleted @"+bullet.getX()+", "+bullet.getY());
                         bullIt.remove();
 
                     }

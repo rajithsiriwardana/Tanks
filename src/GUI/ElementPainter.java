@@ -349,14 +349,14 @@ public class ElementPainter {
                             //check for collisions
                             if ((obsMat[bullet.getX()][bullet.getY()]) == 1) {
 
-                                System.out.println("Same coordinates..!");
+                               // System.out.println("Same coordinates..!");
 
                                 if(!(bullet.getX()==bullet.getOriginX()) || !(bullet.getY()==bullet.getOriginY())){
                                     //System.out.println("X cordinates  match");
                                     //if(!(bullet.getY()==bullet.getOriginY())){
                                        // System.out.println("y coordintes dsnt macth");
                                         bullet.setDestroyed(true);
-                                        System.out.println("Bullet hit @ " + bullet.getX() + "," + bullet.getY());
+                                       // System.out.println("Bullet hit @ " + bullet.getX() + "," + bullet.getY());
                                     //}
                                 }
 
