@@ -335,7 +335,33 @@ public class ElementPainter {
                 bullet = (Bullet) bulletItr.next();
 
                 while (bullet != null) {
-                    drawBullet(bullet);
+
+                    //to keep remove the array out bound exceptions
+                    if ((0<=bullet.getX() && bullet.getX()<20) && (0<=bullet.getY()&& bullet.getY()<20)) {
+                        
+//                        System.out.println("get ::"+bullet.getX()+", "+bullet.getY());
+//
+//                        System.out.println("getOri:: "+bullet.getOriginX()+","+bullet.getOriginY());
+
+                        //to disallow the shooter to be hit by its own bullet
+                        if (((bullet.getX() != bullet.getOriginX()) && (bullet.getY() != bullet.getOriginY()))) {
+
+                            //check for collisions
+                            if ((obsMat[bullet.getX()][bullet.getY()]) == 1) {
+                                bullet.setDestroyed(true);
+                                System.out.println("Bullet hit @ " + bullet.getX() + "," + bullet.getY());
+                            }
+                        }
+
+                    }
+
+                    
+
+                    //if the bullet has not been destroyed
+                    if(!bullet.isDestroyed()){
+                        drawBullet(bullet);
+                    }
+                    
 
                     if (bulletItr.hasNext()) {
                         bullet = (Bullet) bulletItr.next();

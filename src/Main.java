@@ -21,7 +21,7 @@ public class Main {
         try {
             AppGameContainer app = new AppGameContainer(new Game());
             app.setAlwaysRender(true);
-            app.setDisplayMode(350, 350, false);
+            app.setDisplayMode(700 , 700, false);
             app.setTargetFrameRate(30);
             app.setShowFPS(false);
 

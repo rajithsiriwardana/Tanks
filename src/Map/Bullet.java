@@ -12,8 +12,11 @@ package Map;
 public class Bullet {
 
     //stores the initial location of the bullet
-    private float initX;
-    private float initY;
+    private float initFloatX;
+    private float initFloatY;
+
+    private int initIntX;
+    private int initIntY;
 
     //direction of the bullet
     private int direction;
@@ -32,6 +35,9 @@ public class Bullet {
     //to keep track of the time that the bullet was created
     private long iniTime;
 
+    //tells whether the bullet has hit an object or not
+    private boolean destroyed;
+
     public Bullet(int intX, int intY, int dir) {
 
         //map drawn locations
@@ -42,8 +48,11 @@ public class Bullet {
         tileSize=35f;
 
         //set the bullet location in float
-        initX=intX*tileSize+mapX;
-        initY=intY*tileSize+mapY;
+        initFloatX=intX*tileSize+mapX;
+        initFloatY=intY*tileSize+mapY;
+
+        initIntX=intX;
+        initIntY=intY;
 
         //set the location of the bullet
         this.direction=dir;
@@ -57,6 +66,10 @@ public class Bullet {
 
         //bullet created time
         iniTime=System.currentTimeMillis();
+
+        destroyed=false;
+
+        //System.out.println("origin"+initX+", "+initY);
     }
 
 
@@ -72,24 +85,24 @@ public class Bullet {
 
         //if the bullet is headin north
         if(direction==0){
-            output= initX;
+            output= initFloatX;
         }
 
         //if the bullet is heading East
          else if(direction==1){
-             output= initX-speedPerMilliS*(iniTime-System.currentTimeMillis());
+             output= initFloatX-speedPerMilliS*(iniTime-System.currentTimeMillis());
 
          }
 
         //if the bullet is heading south
          else if(direction==2){
-             output= initX;
+             output= initFloatX;
 
          }
 
         //if the bullet is heading West
          else if(direction==3){
-             output= initX+speedPerMilliS*(iniTime-System.currentTimeMillis());
+             output= initFloatX+speedPerMilliS*(iniTime-System.currentTimeMillis());
 
          }
 
@@ -107,24 +120,24 @@ public class Bullet {
 
         //if the bullet is headin north
         if(direction==0){
-            output= (int) (initX / tileSize);
+            output= (int) (initFloatX / tileSize);
         }
 
         //if the bullet is heading East
          else if(direction==1){
-             output= (int) ((initX - speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize);
+             output= (int) ((initFloatX - speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize);
 
          }
 
         //if the bullet is heading south
          else if(direction==2){
-             output= (int) (initX / tileSize);
+             output= (int) (initFloatX / tileSize);
 
          }
 
         //if the bullet is heading West
          else if(direction==3){
-             output= (int) ((initX + speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize);
+             output= (int) ((initFloatX + speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize);
 
          }
 
@@ -142,24 +155,24 @@ public class Bullet {
 
         //if the bullet is headin north
         if(direction==0){
-            output= initY+speedPerMilliS*(iniTime-System.currentTimeMillis());
+            output= initFloatY+speedPerMilliS*(iniTime-System.currentTimeMillis());
         }
 
         //if the bullet is heading East
          else if(direction==1){
-             output= initY;
+             output= initFloatY;
 
          }
 
         //if the bullet is heading south
          else if(direction==2){
-             output= initY-speedPerMilliS*(iniTime-System.currentTimeMillis());
+             output= initFloatY-speedPerMilliS*(iniTime-System.currentTimeMillis());
 
          }
 
         //if the bullet is heading West
          else if(direction==3){
-             output= initY;
+             output= initFloatY;
 
          }
 
@@ -172,24 +185,26 @@ public class Bullet {
 
         //if the bullet is headin north
         if(direction==0){
-            output= (int) ((initY + speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize);
+           // System.out.println("dir 0: "+((initY + speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize));
+            output= (int) ((initFloatY + speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize);
         }
 
         //if the bullet is heading East
          else if(direction==1){
-             output= (int) initY;
+             output=  (int) (initFloatY / tileSize);
 
          }
 
         //if the bullet is heading south
          else if(direction==2){
-             output= (int) ((initY - speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize);
+            // System.out.println("dir 2: "+((initY + speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize));
+             output= (int) ((initFloatY - speedPerMilliS * (iniTime - System.currentTimeMillis())) / tileSize);
 
          }
 
         //if the bullet is heading West
          else if(direction==3){
-             output= (int) initY;
+             output=  (int) (initFloatY / tileSize);
 
          }
 
@@ -200,6 +215,30 @@ public class Bullet {
 
     public int getDirection() {
         return direction;
+    }
+
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
+    }
+
+    /**
+     * used to get the origin X tile of the bullet
+     */
+
+    public int getOriginX(){
+        return initIntX;
+
+    }
+
+    /**
+     * used to get the origin Y tile of the bullet
+     */
+    public int getOriginY(){
+        return initIntY;
     }
 
     
