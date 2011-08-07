@@ -48,6 +48,11 @@ public class Welcome extends BasicGameState {
         //set the current game
         decoder.setCurrentGame(sbg);
 
+
+        ///
+        generator.join();
+        ///
+
        
 
     }
