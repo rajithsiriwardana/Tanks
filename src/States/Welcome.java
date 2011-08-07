@@ -6,9 +6,6 @@ package States;
 
 import Controlling.StringDecoder;
 import Controlling.StringGenerator;
-import java.awt.BorderLayout;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -35,9 +32,7 @@ public class Welcome extends BasicGameState {
     StringGenerator generator;
     //the string decoder which is used to change the game states
     StringDecoder decoder;
-    ///
-    JButton but;
-    JPanel pan;
+    
 
     @Override
     public int getID() {
@@ -53,13 +48,7 @@ public class Welcome extends BasicGameState {
         //set the current game
         decoder.setCurrentGame(sbg);
 
-        pan = new JPanel(new BorderLayout());
-
-
-        but = new JButton("s");
-        pan.add(but);
-
-
+       
 
     }
 
@@ -70,7 +59,6 @@ public class Welcome extends BasicGameState {
 
         grphcs.setColor(Color.white);
         grphcs.drawString("Press Enter to start the game", 50, 300);
-        pan.setVisible(true);
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
