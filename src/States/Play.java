@@ -95,7 +95,7 @@ public class Play extends BasicGameState {
             left = new Image("data/sprites/left.png");
             right = new Image("data/sprites/right.png");
 
-            painter = new ElementPainter(map, brickImage, stoneImage, waterImage, myPlayerImg, myPlayer, lpImage, cpImage,bulletImage);
+            painter = new ElementPainter(map, brickImage, stoneImage, waterImage, myPlayer, lpImage, cpImage,bulletImage);
             painter.setPlayerImages(up, down, left, right);
 
             //load the map

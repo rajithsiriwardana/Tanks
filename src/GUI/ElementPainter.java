@@ -60,13 +60,13 @@ public class ElementPainter {
     //to draw graphics ( like strings)
     private Graphics graphics;
 
-    public ElementPainter(Map map, Image brickImage, Image stoneImage, Image waterImage, Image myPlayerImg, Player myPlayer, Image lpImage, Image cpImage,Image bullet) {
+    public ElementPainter(Map map, Image brickImage, Image stoneImage, Image waterImage, Player myPlayer, Image lpImage, Image cpImage,Image bullet) {
         this.map = map;
         this.brickImage = brickImage;
         this.stoneImage = stoneImage;
         this.waterImage = waterImage;
         this.myPlayer = myPlayer;
-        this.myPlayerImage = myPlayerImg;
+        //this.myPlayerImage = myPlayerImg;
         this.lpImage = lpImage;
         this.cpImage = cpImage;
         this.bulletImage=bullet;
@@ -438,21 +438,23 @@ public class ElementPainter {
 
             // myPlayerImage.draw(converter(Player.getPlayerX()), converter(Player.getPlayerY()));
 
+            //set the picture of the sprite
+            myPlayerImage = up;
             //set the direction of the sprite
             if (Player.getPlayerDir() == 0) {
-                myPlayerImage = up;
-
+                
+                myPlayerImage.setRotation(0);
 
             } else if (Player.getPlayerDir() == 1) {
-                myPlayerImage = right;
+                myPlayerImage.setRotation(90);
 
 
 
             } else if (Player.getPlayerDir() == 2) {
-                myPlayerImage = down;
+                myPlayerImage.setRotation(180);
 
             } else if (Player.getPlayerDir() == 3) {
-                myPlayerImage = left;
+                myPlayerImage.setRotation(270);
 
             }
 //////
@@ -474,7 +476,7 @@ public class ElementPainter {
                 //Sprite.update?? :s
 
                 // y-= delta* 0.1f;
-                myPlayerImage = up;
+                myPlayerImage.setRotation(0);
                 currentY -= delta * speed;
                 Player.setDrawnY(currentY);
                 // System.out.println("UP");
@@ -484,7 +486,8 @@ public class ElementPainter {
                 //Sprite.update?? :s
 
                 // y-= delta* 0.1f;
-                myPlayerImage = down;
+
+                myPlayerImage.setRotation(180);
                 currentY += delta * speed;
                 Player.setDrawnY(currentY);
                 // System.out.println("DOWN");
@@ -494,7 +497,8 @@ public class ElementPainter {
                 //Sprite.update?? :s
 
                 // y-= delta* 0.1f;
-                myPlayerImage = right;
+
+                myPlayerImage.setRotation(90);
                 currentX += delta * speed;
                 Player.setDrawnX(currentX);
                 // System.out.println("RIGHT:"+trueX+","+currentX);
@@ -505,7 +509,8 @@ public class ElementPainter {
                 //Sprite.update?? :s
 
                 // y-= delta* 0.1f;
-                myPlayerImage = left;
+
+                myPlayerImage.setRotation(270);
                 currentX -= delta * speed;
                 Player.setDrawnX(currentX);
                 // System.out.println("LEFT:"+trueX+","+currentX);
