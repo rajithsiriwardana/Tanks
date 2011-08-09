@@ -48,6 +48,14 @@ public class ElementPainter {
     private Image down;
     private Image left;
     private Image right;
+
+    //enemy images
+    private Image enemy1;
+    private Image enemy2;
+    private Image enemy3;
+    private Image enemy4;
+    private Image enemy5;
+
     //sets the tile size
     private int tileSize = 35;
     private Player myPlayer;
@@ -292,7 +300,7 @@ public class ElementPainter {
                 if (player.isAlive()) {
                     //mark the location as occupied
                     obsMat[player.getPlayerX()][player.getPlayerY()]=1;
-                    drawPlayer(player);
+                    drawEnemies(player);
                 }
 
 
@@ -322,7 +330,7 @@ public class ElementPainter {
 
                 //mark the location as occupied
                 obsMat[myPlayer.getPlayerX()][myPlayer.getPlayerY()]=1;
-                drawPlayer(myPlayer);
+                drawMyPlayer(myPlayer);
             }
 
         }
@@ -409,7 +417,7 @@ public class ElementPainter {
     }
 
     //draws the player
-    private void drawPlayer(Player Player) {
+    private void drawMyPlayer(Player Player) {
 
 
         /*
@@ -446,8 +454,10 @@ public class ElementPainter {
             // myPlayerImage.draw(converter(Player.getPlayerX()), converter(Player.getPlayerY()));
 
 
+
+
             //set the picture of the sprite
-            myPlayerImage = up;
+           // myPlayerImage = up;
             //set the direction of the sprite
             if (Player.getPlayerDir() == 0 && (myPlayerImage.getRotation()!=0)) {
 
@@ -561,6 +571,188 @@ public class ElementPainter {
             }
 
             myPlayerImage.draw(currentX, currentY);
+
+            //System.out.println("DRAW");
+           // System.out.println("rotation::" +myPlayerImage.getRotation());
+
+        }
+
+    }
+
+    /**
+     * draw enemies
+     */
+
+    private void drawEnemies(Player Player) {
+
+
+        /*
+         *
+         * Rewrite this method to support 5 different players
+         */
+
+        /*
+         * to support animation
+         */
+
+        //to control the speed of the animation
+        float speed = 0.03f;
+
+        //to control the error of the animation
+        float error = 2f;
+
+        //the true position of the sprite
+        float trueX = 0f, trueY = 0f;
+
+        //the current position of the sprite
+
+        float currentX = 0f, currentY = 0f;
+        /*
+         *
+         */
+
+        Image enemyImg=enemy1;
+
+
+        //checks whether the player exists
+        if (Player != null) {
+            //System.out.println("1");
+            //System.out.println("draw player");
+
+            // myPlayerImage.draw(converter(Player.getPlayerX()), converter(Player.getPlayerY()));
+
+
+            if (Player.getIndex() == 0) {
+                enemyImg = enemy1;
+            } else if (Player.getIndex() == 1) {
+                enemyImg = enemy2;
+            } else if (Player.getIndex() == 2) {
+                enemyImg = enemy3;
+
+            } else if (Player.getIndex() == 3) {
+                enemyImg = enemy4;
+            } else if (Player.getIndex() == 4) {
+
+                enemyImg = enemy5;
+            }
+
+
+
+            //set the picture of the sprite
+           // myPlayerImage = up;
+            //set the direction of the sprite
+            if (Player.getPlayerDir() == 0 && (enemyImg.getRotation()!=0)) {
+
+
+                if(Player.getPrevDir()==1){
+                    enemyImg.setRotation(enemyImg.getRotation()-rotatingSpeed);
+                }
+                 else{
+
+                    enemyImg.setRotation(enemyImg.getRotation()+rotatingSpeed);
+                 }
+
+                //angle+=10;
+
+
+            } else if (Player.getPlayerDir() == 1 && (enemyImg.getRotation()!=90)) {
+
+                if(Player.getPrevDir()==2){
+                    enemyImg.setRotation(enemyImg.getRotation()-rotatingSpeed);
+                }
+                 else{
+
+                    enemyImg.setRotation(enemyImg.getRotation()+rotatingSpeed);
+                 }
+
+
+
+
+            } else if (Player.getPlayerDir() == 2 && (enemyImg.getRotation()!=180)) {
+
+                if(Player.getPrevDir()==3){
+                    enemyImg.setRotation(enemyImg.getRotation()-rotatingSpeed);
+                }
+                 else{
+
+                    enemyImg.setRotation(enemyImg.getRotation()+rotatingSpeed);
+                 }
+
+
+            } else if (Player.getPlayerDir() == 3 && (enemyImg.getRotation()!=270)) {
+
+                if(Player.getPrevDir()==0){
+                    enemyImg.setRotation(enemyImg.getRotation()-rotatingSpeed);
+                }
+                 else{
+
+                    enemyImg.setRotation(enemyImg.getRotation()+rotatingSpeed);
+                 }
+
+            }
+//////
+//////            myPlayerImage.draw(playerDataConverter(Player.getPlayerX()), playerDataConverter(Player.getPlayerY()));
+
+            //set the true location of the player
+            trueX = playerDataConverter(Player.getPlayerX())+10f;
+            trueY = playerDataConverter(Player.getPlayerY())+10f;
+
+            /*get the earlier location of the player
+             * (The location that the sprite was drawn)
+             */
+
+            currentX = Player.getEarlierX();
+            currentY = Player.getEarlierY();
+
+            //if the player has gone up
+            if (trueY < currentY - error) {
+                //Sprite.update?? :s
+
+                // y-= delta* 0.1f;
+                enemyImg.setRotation(0);
+                currentY -= delta * speed;
+                Player.setDrawnY(currentY);
+                // System.out.println("UP");
+
+            } //if the player has gone down
+            else if (trueY > currentY + error) {
+                //Sprite.update?? :s
+
+                // y-= delta* 0.1f;
+
+                enemyImg.setRotation(180);
+                currentY += delta * speed;
+                Player.setDrawnY(currentY);
+                // System.out.println("DOWN");
+
+            } //if the player has gone right
+            else if (trueX > currentX + error) {
+                //Sprite.update?? :s
+
+                // y-= delta* 0.1f;
+
+                enemyImg.setRotation(90);
+                currentX += delta * speed;
+                //myPlayerImage.setRotation(angle);
+                Player.setDrawnX(currentX);
+                // System.out.println("RIGHT:"+trueX+","+currentX);
+                // System.out.println("RIGHT");
+
+            } //if the player has gone left
+            else if (trueX < currentX - error) {
+                //Sprite.update?? :s
+
+                // y-= delta* 0.1f;
+
+                enemyImg.setRotation(270);
+                currentX -= delta * speed;
+                Player.setDrawnX(currentX);
+                // System.out.println("LEFT:"+trueX+","+currentX);
+                // System.out.println("LEFT");
+
+            }
+
+            enemyImg.draw(currentX, currentY);
 
             //System.out.println("DRAW");
            // System.out.println("rotation::" +myPlayerImage.getRotation());
@@ -690,5 +882,13 @@ public class ElementPainter {
 
     public void setMyPlayerImage(Image myPlayerImage) {
         this.myPlayerImage = myPlayerImage;
+    }
+
+    public void setEnemies(Image enemy1,Image enemy2,Image enemy3,Image enemy4,Image enemy5 ){
+        this.enemy1=enemy1;
+        this.enemy2=enemy2;
+        this.enemy3=enemy3;
+        this.enemy4=enemy4;
+        this.enemy5=enemy5;
     }
 }

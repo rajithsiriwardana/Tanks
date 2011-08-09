@@ -51,6 +51,14 @@ public class Play extends BasicGameState {
     //my player
     private Player myPlayer;
     private Image myPlayerImg;
+    //enemy images
+    private Image enemy1;
+    private Image enemy2;
+    private Image enemy3;
+    private Image enemy4;
+    private Image enemy5;
+
+
     //load playres images
     private Image up;
     private Image down;
@@ -84,19 +92,23 @@ public class Play extends BasicGameState {
             brickImage = new Image("data/map/brick.png");
             stoneImage = new Image("data/map/stone.png");
             waterImage = new Image("data/map/water.png");
-            myPlayerImg = new Image("data/map/water.png");
             lpImage = new Image("data/map/LP.png");
             cpImage = new Image("data/map/coin.png");
             bulletImage=new Image("data/map/bullet.png");
 
+
+
             //load player images
-            up = new Image("data/sprites/up.png");
-            down = new Image("data/sprites/down.png");
-            left = new Image("data/sprites/left.png");
-            right = new Image("data/sprites/right.png");
+            myPlayerImg = new Image("data/sprites/up.png");
+            enemy1=new Image("data/sprites/enemy.png");
+            enemy2=new Image("data/sprites/enemy.png");
+            enemy3=new Image("data/sprites/enemy.png");
+            enemy4=new Image("data/sprites/enemy.png");
+            enemy5=new Image("data/sprites/enemy.png");
 
             painter = new ElementPainter(map, brickImage, stoneImage, waterImage, myPlayer, lpImage, cpImage,bulletImage);
-            painter.setPlayerImages(up, down, left, right);
+            painter.setMyPlayerImage(myPlayerImg);
+            painter.setEnemies(enemy1, enemy2, enemy3, enemy4,enemy5);
 
             //load the map
             grassMap = new TiledMap("data/map/map.tmx");
