@@ -60,6 +60,9 @@ public class ElementPainter {
     //to draw graphics ( like strings)
     private Graphics graphics;
 
+    int angle;
+    int rotatingSpeed;
+
     public ElementPainter(Map map, Image brickImage, Image stoneImage, Image waterImage, Player myPlayer, Image lpImage, Image cpImage,Image bullet) {
         this.map = map;
         this.brickImage = brickImage;
@@ -80,6 +83,10 @@ public class ElementPainter {
         /*
          *
          */
+
+        angle=0;
+        rotatingSpeed=5;
+
 
 
 
@@ -438,23 +445,57 @@ public class ElementPainter {
 
             // myPlayerImage.draw(converter(Player.getPlayerX()), converter(Player.getPlayerY()));
 
+
             //set the picture of the sprite
             myPlayerImage = up;
             //set the direction of the sprite
-            if (Player.getPlayerDir() == 0) {
+            if (Player.getPlayerDir() == 0 && (myPlayerImage.getRotation()!=0)) {
+
+
+                if(Player.getPrevDir()==1){
+                    myPlayerImage.setRotation(myPlayerImage.getRotation()-rotatingSpeed);
+                }
+                 else{
+
+                    myPlayerImage.setRotation(myPlayerImage.getRotation()+rotatingSpeed);
+                 }
+
+                //angle+=10;
                 
-                myPlayerImage.setRotation(0);
 
-            } else if (Player.getPlayerDir() == 1) {
-                myPlayerImage.setRotation(90);
+            } else if (Player.getPlayerDir() == 1 && (myPlayerImage.getRotation()!=90)) {
+
+                if(Player.getPrevDir()==2){
+                    myPlayerImage.setRotation(myPlayerImage.getRotation()-rotatingSpeed);
+                }
+                 else{
+
+                    myPlayerImage.setRotation(myPlayerImage.getRotation()+rotatingSpeed);
+                 }
 
 
+                
 
-            } else if (Player.getPlayerDir() == 2) {
-                myPlayerImage.setRotation(180);
+            } else if (Player.getPlayerDir() == 2 && (myPlayerImage.getRotation()!=180)) {
 
-            } else if (Player.getPlayerDir() == 3) {
-                myPlayerImage.setRotation(270);
+                if(Player.getPrevDir()==3){
+                    myPlayerImage.setRotation(myPlayerImage.getRotation()-rotatingSpeed);
+                }
+                 else{
+
+                    myPlayerImage.setRotation(myPlayerImage.getRotation()+rotatingSpeed);
+                 }
+
+
+            } else if (Player.getPlayerDir() == 3 && (myPlayerImage.getRotation()!=270)) {
+
+                if(Player.getPrevDir()==0){
+                    myPlayerImage.setRotation(myPlayerImage.getRotation()-rotatingSpeed);
+                }
+                 else{
+
+                    myPlayerImage.setRotation(myPlayerImage.getRotation()+rotatingSpeed);
+                 }
 
             }
 //////
@@ -500,6 +541,7 @@ public class ElementPainter {
 
                 myPlayerImage.setRotation(90);
                 currentX += delta * speed;
+                //myPlayerImage.setRotation(angle);
                 Player.setDrawnX(currentX);
                 // System.out.println("RIGHT:"+trueX+","+currentX);
                 // System.out.println("RIGHT");
@@ -521,6 +563,7 @@ public class ElementPainter {
             myPlayerImage.draw(currentX, currentY);
 
             //System.out.println("DRAW");
+           // System.out.println("rotation::" +myPlayerImage.getRotation());
 
         }
 

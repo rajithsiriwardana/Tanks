@@ -28,6 +28,8 @@ public class Player {
     private int playerY;
     //direction of the player
     private int playerDir;
+    //previous direction of the player
+    private int prevDir;
     private int health;
     private boolean shot;
     private int coins;
@@ -39,6 +41,7 @@ public class Player {
         this.playerX = playerX;
         this.playerY = playerY;
         this.playerDir = playerDir;
+        this.prevDir=playerDir;
         this.health = health;
         this.index = index;
 
@@ -94,8 +97,16 @@ public class Player {
     }
 
     public void setPlayerDir(int playerDir) {
+        prevDir=this.playerDir;
         this.playerDir = playerDir;
+
     }
+
+    public int getPrevDir() {
+        return prevDir;
+    }
+
+    
 
     public int getPlayerX() {
         return playerX;
