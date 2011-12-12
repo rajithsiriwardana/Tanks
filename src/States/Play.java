@@ -168,17 +168,17 @@ public class Play extends BasicGameState {
 
         }
 
-        //for music playback
-//////        if (sbg.getCurrentStateID() == id && !backMusic.playing()) {
-//////            backMusic.play();
-//////            backMusic.loop();
-//////        } else if (sbg.getCurrentStateID() != id) {
-//////
-//////            if (sbg.getCurrentStateID() == id && !backMusic.playing()) {
-//////             backMusic.stop();
-//////        }
-
-
+//        //for music playback
+//        if (sbg.getCurrentStateID() == id && !backMusic.playing()) {
+//            backMusic.play();
+//            backMusic.loop();
+//        } else if (sbg.getCurrentStateID() != id) {
+//
+//            if (sbg.getCurrentStateID() == id && !backMusic.playing()) {
+//             backMusic.stop();
+//            }
+//
+//        }
 
         delta = i;
 

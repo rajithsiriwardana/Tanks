@@ -12,13 +12,22 @@ import Map.Map;
 import Map.Player;
 import Map.Stone;
 import Map.Water;
+import java.util.Comparator;
 import java.util.ConcurrentModificationException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.ShapeFill;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Vector2f;
 
 /**
  *
@@ -67,6 +76,8 @@ public class ElementPainter {
     int[] duration;
     //to draw graphics ( like strings)
     private Graphics graphics;
+    
+    
 
     int angle;
     int rotatingSpeed;
@@ -117,6 +128,8 @@ public class ElementPainter {
          */
 
         this.graphics = graphics;
+        
+        
 
 
         /*
@@ -291,11 +304,15 @@ public class ElementPainter {
         ListIterator playerIter = players.listIterator();
 
         Player player;
+        
+        int index=0;
 
         if (playerIter.hasNext()) {
             player = (Player) playerIter.next();
 
             while ((player) != null) {
+                
+               
 
                 if (player.isAlive()) {
                     //mark the location as occupied
@@ -411,7 +428,7 @@ public class ElementPainter {
         }
 
         
-        
+        //drawScoreTable();
 
 
     }
@@ -571,6 +588,7 @@ public class ElementPainter {
             }
 
             myPlayerImage.draw(currentX, currentY);
+            graphics.drawString(Integer.toString(myPlayer.getIndex()), currentX, currentY);
 
             //System.out.println("DRAW");
            // System.out.println("rotation::" +myPlayerImage.getRotation());
@@ -753,6 +771,7 @@ public class ElementPainter {
             }
 
             enemyImg.draw(currentX, currentY);
+            graphics.drawString(Integer.toString(Player.getIndex()), currentX, currentY);
 
             //System.out.println("DRAW");
            // System.out.println("rotation::" +myPlayerImage.getRotation());
@@ -845,6 +864,103 @@ public class ElementPainter {
 
         }
 
+    }
+    
+    /**
+     * Draws the score table on the screen
+     * 
+     */
+    private void drawScoreTable(){
+        
+        int tableX=0;
+        int tableY=22;
+        
+        graphics.drawRoundRect(800, 100, 300, 500, 12);
+        //graphics.drawString("MARIO", 800 + 500/4 * 0, 22);
+        
+        graphics.drawString("My player:   \t\t\t"+myPlayer.getCoins()+"   \t\t\t"+myPlayer.getHealth(), 800 + 500/4 * 0, tableY+(myPlayer.getIndex()*20));
+        
+//        //This code is to order the players by score
+//        class ValueComparator implements Comparator {
+//
+//            java.util.Map base;
+//
+//            public ValueComparator(java.util.Map base) {
+//                this.base = base;
+//            }
+//
+//            public int compare(Object a, Object b) {
+//
+//                if ((Double) base.get(a) < (Double) base.get(b)) {
+//                    return 1;
+//                } else if ((Double) base.get(a) == (Double) base.get(b)) {
+//                    return 0;
+//                } else {
+//                    return -1;
+//                }
+//            }
+//        }
+//        
+//        graphics.drawString("1", 800 + 600/4 * 0, 22);
+//        HashMap<Integer,Player> players = new HashMap<Integer,Player>();
+//        ValueComparator bvc =  new ValueComparator(players);
+//        TreeMap<Integer,Player> sorted_players = new TreeMap(bvc);
+//        
+        //get the players
+        LinkedList<Player> enemies = map.getContestants();
+
+        ListIterator playerIter = enemies.listIterator();
+
+        Player player;
+        
+        
+
+        if (playerIter.hasNext()) {
+            player = (Player) playerIter.next();
+
+            while ((player) != null) {
+                
+               
+               graphics.drawString("Player"+player.getIndex()+":   \t\t\t"+player.getCoins()+"   \t\t\t"+player.getHealth(), 800 + 500/4 * 0, tableY+(player.getIndex()*20));
+               
+
+
+                if (playerIter.hasNext()) {
+                    player = (Player) playerIter.next();
+
+                } else {
+
+                    break;
+                }
+
+
+            }
+
+
+        }
+//        
+//        players.put(map.getMyPlayer().getCoins(),map.getMyPlayer());
+//        System.out.println(players);
+//        for(int key : sorted_players.keySet()){
+////            graphics.drawString("2", 800 + 50/4 * 0, 22);
+//            System.out.println("test");
+//            Player p=sorted_players.get(key);
+//            graphics.drawString("player"+p.getIndex()+"\t\t"+p.getCoins(), 800 + 500/4 * 0, 22);
+//        }
+//        
+//        for(int index=0;index< allPlayers.length;index++){
+//            players.put(allPlayers[index],allPlayers[index].getCoins());
+//            
+//        }
+//        
+//        //draw the player scores
+//        for(int index=0;index< allPlayers.length;index++){
+//            
+//            graphics.drawString("player"+allPlayers[index].getIndex(), 800 + 500/4 * 0, 22);
+//            
+//        }
+//        
+        
     }
 
     /**

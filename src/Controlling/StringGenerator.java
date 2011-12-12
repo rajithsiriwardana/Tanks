@@ -13,14 +13,33 @@ import Networking.Sender;
 public class StringGenerator {
 
     private Sender sender;
+    private int outPort;
+    private String server;
+    
+    //tracks whther the join message has already been sent
+    private boolean joinSent;
 
     public StringGenerator(int outPort, String server) {
-        sender = new Sender(outPort, server);
+        
+        this.outPort = outPort;
+        this.server = server;
+        joinSent=false;
     }
 
-    public void join() {
+    
 
-        sender.send("JOIN#");
+    public void join() {
+        //do not resend the join message
+        if (!joinSent){
+            sender = new Sender(outPort, server);
+            sender.send("JOIN#");
+            joinSent=true;
+        }
+        else{
+            System.out.println("Tried to resend the \" #join\" message7042175"
+                    + "");
+        }
+        
 
 
     }
