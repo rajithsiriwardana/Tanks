@@ -16,10 +16,10 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author ishan
  */
-public class GameOver extends BasicGameState {
-
+public class CannotConnect extends BasicGameState{
+    
     /** The ID given to this state */
-    public static final int id = 3;
+    public static final int id = 4;
     //to store the current game
     private StateBasedGame game;
     //for sound
@@ -27,7 +27,6 @@ public class GameOver extends BasicGameState {
 
     @Override
     public int getID() {
-
         return id;
     }
 
@@ -36,15 +35,13 @@ public class GameOver extends BasicGameState {
 
         //load music
         backMusic = new Music("data/music/3.wav");
-        // backMusic.play();
-
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
 
-        grphcs.drawString("GAME OVER", 650, 350);
+        grphcs.drawString("Sorry... Cannot connect to the server at the moment.", 500, 350);
         
-        grphcs.drawString("B - Move back to the map", 100, 500);
+        grphcs.drawString("B - Move back to the main menu", 100, 500);
         
 
     }
@@ -62,7 +59,7 @@ public class GameOver extends BasicGameState {
     @Override
     public void keyReleased(int key, char c) {
         if (key == Input.KEY_B) {
-            game.enterState(Play.id);
+            game.enterState(Welcome.id);
 
         }
     }

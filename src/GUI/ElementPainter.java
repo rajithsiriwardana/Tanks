@@ -428,7 +428,7 @@ public class ElementPainter {
         }
 
         
-        //drawScoreTable();
+        drawScoreTable();
 
 
     }
@@ -875,7 +875,7 @@ public class ElementPainter {
         int tableX=0;
         int tableY=22;
         
-        graphics.drawRoundRect(800, 100, 300, 500, 12);
+       // graphics.drawRoundRect(800, 100, 300, 500, 12);
         //graphics.drawString("MARIO", 800 + 500/4 * 0, 22);
         
         graphics.drawString("My player:   \t\t\t"+myPlayer.getCoins()+"   \t\t\t"+myPlayer.getHealth(), 800 + 500/4 * 0, tableY+(myPlayer.getIndex()*20));

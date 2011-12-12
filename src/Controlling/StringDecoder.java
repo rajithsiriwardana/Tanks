@@ -11,6 +11,7 @@ import Map.Map;
 import Map.Player;
 import Map.Stone;
 import Map.Water;
+import States.CannotConnect;
 import States.GameOver;
 import States.Play;
 import java.util.StringTokenizer;
@@ -107,7 +108,26 @@ public class StringDecoder {
         } else if (firstLetter.equalsIgnoreCase("PITFALL#")) {
             game.enterState(GameOver.id, new FadeOutTransition(Color.red), new FadeInTransition(Color.black));
 
+        }else if (firstLetter.equalsIgnoreCase("DEAD#")) {
+            game.enterState(GameOver.id, new FadeOutTransition(Color.red), new FadeInTransition(Color.black));
+
+        }else if (firstLetter.equalsIgnoreCase("PLAYERS_FULL#")) {
+            game.enterState(CannotConnect.id, new FadeOutTransition(Color.red), new FadeInTransition(Color.black));
+
+        }else if (firstLetter.equalsIgnoreCase("NOT_A_VALID_CONTESTANT#")) {
+            game.enterState(CannotConnect.id, new FadeOutTransition(Color.red), new FadeInTransition(Color.black));
+
+        }else if (firstLetter.equalsIgnoreCase("GAME_FINISHED#")) {
+            game.enterState(GameOver.id, new FadeOutTransition(Color.red), new FadeInTransition(Color.black));
+
+        }else if (firstLetter.equalsIgnoreCase("GAME_HAS_FINISHED#")) {
+            game.enterState(GameOver.id, new FadeOutTransition(Color.red), new FadeInTransition(Color.black));
+
+        }else if (firstLetter.equalsIgnoreCase("GAME_ALREADY_STARTED#")) {
+            game.enterState(CannotConnect.id, new FadeOutTransition(Color.red), new FadeInTransition(Color.black));
+
         }
+        
 
 
 

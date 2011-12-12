@@ -3,6 +3,7 @@ import Controlling.StringDecoder;
 import Controlling.StringGenerator;
 import Map.Map;
 import Networking.Receiver;
+import States.CannotConnect;
 import States.GameOver;
 import States.Play;
 import States.Welcome;
@@ -33,6 +34,7 @@ public class Game extends StateBasedGame {
     private Welcome welcome;
     private Play play;
     private GameOver gameOver;
+    private CannotConnect cannotConnect;
 
     public Game() {
         super("Tank Game");
@@ -79,10 +81,12 @@ public class Game extends StateBasedGame {
 
 
         gameOver = new GameOver();
+        cannotConnect=new CannotConnect();
 
 
         addState(welcome);
         addState(play);
         addState(gameOver);
+        addState(cannotConnect);
     }
 }
