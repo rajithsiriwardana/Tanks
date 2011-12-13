@@ -6,6 +6,7 @@ package States;
 
 import Controlling.StringDecoder;
 import Controlling.StringGenerator;
+import Networking.ServerConfigParser;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -29,9 +30,12 @@ public class Welcome extends BasicGameState {
     /** The ID given to this state */
     public static final int id = 1;
     //The string generator which will be used to start the game
-    StringGenerator generator;
+    private StringGenerator generator;
     //the string decoder which is used to change the game states
-    StringDecoder decoder;
+    private StringDecoder decoder;
+    
+    //The server config
+    private ServerConfigParser scp;
     
 
     @Override
@@ -49,23 +53,32 @@ public class Welcome extends BasicGameState {
         decoder.setCurrentGame(sbg);
 
 
+        ///set the server config parser
+        scp=new ServerConfigParser();
         ///
        // generator.join();
         ///
 
+        //System.out.println(scp.getServerAddress());
        
 
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
 
-        grphcs.setColor(Color.white);
-        grphcs.drawString("Welcome", 140, 100);
+        grphcs.setColor(Color.green);
+        grphcs.drawString("Welcome", 650, 100);
         
         
 
         grphcs.setColor(Color.white);
-        grphcs.drawString("Press Enter to start the game", 50, 300);
+        grphcs.drawString("Press Enter to start the game", 550, 300);
+        
+        grphcs.drawString("Current server setup:", 100, 400);
+        grphcs.drawString("Server: "+scp.getServerAddress(), 120, 450);
+        grphcs.drawString("In port: "+scp.getServerInPort(), 120, 470);
+        grphcs.drawString("Out port: "+scp.getServerOutPort(), 120, 490);
+        
         
         
         

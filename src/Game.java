@@ -3,6 +3,7 @@ import Controlling.StringDecoder;
 import Controlling.StringGenerator;
 import Map.Map;
 import Networking.Receiver;
+import Networking.ServerConfigParser;
 import States.CannotConnect;
 import States.GameOver;
 import States.Play;
@@ -35,17 +36,19 @@ public class Game extends StateBasedGame {
     private Play play;
     private GameOver gameOver;
     private CannotConnect cannotConnect;
+    
+    //to get server data
+    private ServerConfigParser scp;
 
     public Game() {
         super("Tank Game");
-
+        
         //server data
-        outPort = 6000;
-        inPort = 7000;
-        server = "localhost";
+        scp=new ServerConfigParser();
 
-        //create the string sender
-        generator = new StringGenerator(outPort, server);
+        
+
+        
 
 
         //create the map
@@ -62,6 +65,14 @@ public class Game extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
+        
+        //read server data
+        inPort=scp.getServerInPort();
+        outPort=scp.getServerOutPort();
+        server=scp.getServerAddress();
+        
+        //create the string sender
+        generator = new StringGenerator(outPort, server);
 
         //create the string receiver
         receiver = new Receiver(inPort, decoder);

@@ -411,6 +411,11 @@ public class ElementPainter {
                         }
 
                     }
+                    
+                    //to stop the bullet from being drawn outside the map
+                    if((bullet.getFloatX()>700)||(bullet.getFloatY()>700)){
+                        bullet.setDestroyed(true);
+                    }
 
                     
 
