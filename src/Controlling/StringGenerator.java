@@ -17,26 +17,32 @@ public class StringGenerator {
     private String server;
     
     //tracks whther the join message has already been sent
-    private boolean joinSent;
+    
+    private long joinSentTime;
 
     public StringGenerator(int outPort, String server) {
         
         this.outPort = outPort;
         this.server = server;
-        joinSent=false;
+        joinSentTime=0;
     }
 
     
 
     public void join() {
-        //do not resend the join message
-        if (!joinSent){
+        
+        
+        //if join has been last sent within 5 seconds 
+        if((joinSentTime+5000)<System.currentTimeMillis()){
             sender = new Sender(outPort, server);
             sender.send("JOIN#");
-            joinSent=true;
+            joinSentTime=System.currentTimeMillis();
         }
+        
         else{
-            System.out.println("Tried to resend the \" #join\" message7042175"
+            
+            
+            System.out.println("Tried to resend the \" #join\" message"
                     + "");
         }
         
