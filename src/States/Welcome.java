@@ -11,6 +11,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -37,6 +38,8 @@ public class Welcome extends BasicGameState {
     //The server config
     private ServerConfigParser scp;
     
+    //for music
+    Music backMusic;
 
     @Override
     public int getID() {
@@ -60,6 +63,10 @@ public class Welcome extends BasicGameState {
         ///
 
         //System.out.println(scp.getServerAddress());
+        
+        //load music
+        backMusic = new Music("data/music/welcome.wav");
+        // backMusic.play();
        
 
     }
@@ -87,6 +94,13 @@ public class Welcome extends BasicGameState {
     }
 
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
+        
+        if (sbg.getCurrentStateID() == id && !backMusic.playing()) {
+            backMusic.play();
+        } else if (sbg.getCurrentStateID() != id) {
+
+            backMusic.stop();
+        }
     }
 
     @Override
