@@ -67,6 +67,9 @@ public class Welcome extends BasicGameState {
         grphcs.setColor(Color.white);
         grphcs.drawString("Press Enter to start the game", 50, 300);
         
+        
+        
+        
        
     }
 

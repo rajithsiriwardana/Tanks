@@ -12,22 +12,16 @@ import Map.Map;
 import Map.Player;
 import Map.Stone;
 import Map.Water;
-import java.util.Comparator;
+import java.awt.Font;
 import java.util.ConcurrentModificationException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
-import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.ShapeFill;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.TrueTypeFont;
+
 
 /**
  *
@@ -77,8 +71,14 @@ public class ElementPainter {
     //to draw graphics ( like strings)
     private Graphics graphics;
     
+    //setup fonts
+    Font fTitle ;
+    TrueTypeFont ttfTitle ;
     
-
+    Font fScore;
+    TrueTypeFont ttfScore;
+    
+    
     int angle;
     int rotatingSpeed;
 
@@ -105,8 +105,17 @@ public class ElementPainter {
 
         angle=0;
         rotatingSpeed=5;
+        
+        //setup fonts
+        
+        //title font
+        fTitle = new Font("Times New Roman", Font.BOLD, 24);
+        ttfTitle = new TrueTypeFont(fTitle, false);
 
 
+        //score font
+        fScore=new Font("Veradana", Font.PLAIN, 15);
+        ttfScore=new TrueTypeFont(fScore, false);
 
 
     }
@@ -428,7 +437,7 @@ public class ElementPainter {
         }
 
         
-        drawScoreTable();
+        drawSideBar();
 
 
     }
@@ -870,41 +879,49 @@ public class ElementPainter {
      * Draws the score table on the screen
      * 
      */
-    private void drawScoreTable(){
+    private void drawSideBar(){
         
         int tableX=0;
-        int tableY=22;
+        int tableY=100;
+        int width=50;
+        int height=30;
         
-       // graphics.drawRoundRect(800, 100, 300, 500, 12);
-        //graphics.drawString("MARIO", 800 + 500/4 * 0, 22);
+        //setup fonts
         
-        graphics.drawString("My player:   \t\t\t"+myPlayer.getCoins()+"   \t\t\t"+myPlayer.getHealth(), 800 + 500/4 * 0, tableY+(myPlayer.getIndex()*20));
         
-//        //This code is to order the players by score
-//        class ValueComparator implements Comparator {
-//
-//            java.util.Map base;
-//
-//            public ValueComparator(java.util.Map base) {
-//                this.base = base;
-//            }
-//
-//            public int compare(Object a, Object b) {
-//
-//                if ((Double) base.get(a) < (Double) base.get(b)) {
-//                    return 1;
-//                } else if ((Double) base.get(a) == (Double) base.get(b)) {
-//                    return 0;
-//                } else {
-//                    return -1;
-//                }
-//            }
-//        }
-//        
-//        graphics.drawString("1", 800 + 600/4 * 0, 22);
-//        HashMap<Integer,Player> players = new HashMap<Integer,Player>();
-//        ValueComparator bvc =  new ValueComparator(players);
-//        TreeMap<Integer,Player> sorted_players = new TreeMap(bvc);
+        
+        
+
+        //graphics.drawString("The GAME", 900, 100);
+        
+        ttfTitle.drawString(950, 22, "The GAME", Color.yellow) ;
+        
+        //print table headings
+        
+        ttfScore.drawString(800 + (width * 2)-10, tableY-height, "Coins", Color.white);
+        
+        ttfScore.drawString(800 + (width * 4)-10, tableY-height, "Health", Color.white);
+        
+        
+        //ttfScore.drawString( 800 + 500/4 * 0, tableY+(myPlayer.getIndex()*width),"Scorpio:   \t\t\t"+myPlayer.getCoins()+"        \t\t\t"+myPlayer.getHealth(), Color.lightGray);
+        
+        ttfScore.drawString(800 + width * 0, tableY + (myPlayer.getIndex() * height), "Scorpio", Color.lightGray);
+        ttfScore.drawString(800 + width * 2, tableY + (myPlayer.getIndex() * height), Integer.toString(myPlayer.getCoins()), Color.lightGray);
+        ttfScore.drawString(800 + width * 4, tableY+(myPlayer.getIndex()*height),Integer.toString(myPlayer.getHealth()), Color.lightGray);
+       // f1ttf.drawString(800, 300, "Othre font", Color.yellow);
+        
+        //ff.drawString(600, 300, "TST",Color.green);
+        
+        
+       // TrueTypeFont dd=new TrueTypeFont
+        
+        /*
+         * Draw players details
+         */
+        
+       // graphics.drawString("My player:   \t\t\t"+myPlayer.getCoins()+"   \t\t\t"+myPlayer.getHealth(), 800 + 500/4 * 0, tableY+(myPlayer.getIndex()*20));
+        
+
 //        
         //get the players
         LinkedList<Player> enemies = map.getContestants();
@@ -921,7 +938,17 @@ public class ElementPainter {
             while ((player) != null) {
                 
                
-               graphics.drawString("Player"+player.getIndex()+":   \t\t\t"+player.getCoins()+"   \t\t\t"+player.getHealth(), 800 + 500/4 * 0, tableY+(player.getIndex()*20));
+               //graphics.drawString("Player"+player.getIndex()+":   \t\t\t"+player.getCoins()+"   \t\t\t"+player.getHealth(), 800 + 500/4 * 0, tableY+(player.getIndex()*20));
+               ttfScore.drawString( 800 + width*0, tableY+(player.getIndex()*height),"Player"+player.getIndex(), Color.lightGray);
+               ttfScore.drawString( 800 + width * 2, tableY+(player.getIndex()*height),Integer.toString(player.getCoins()), Color.lightGray);
+               
+               if(player.isAlive()){
+                   ttfScore.drawString( 800 + width * 4, tableY+(player.getIndex()*height),Integer.toString(player.getHealth()), Color.lightGray);
+               }
+               if(!player.isAlive()){
+                   ttfScore.drawString( 800 + width * 4, tableY+(player.getIndex()*height),"Dead", Color.red);
+               }
+               
                
 
 
