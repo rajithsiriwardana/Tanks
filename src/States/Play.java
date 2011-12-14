@@ -86,32 +86,32 @@ public class Play extends BasicGameState {
             mapY = 0;
 
             //load music
-            backMusic = new Music("data/music/play.wav");
+            backMusic = new Music("data"+System.getProperty("file.separator") +"music"+System.getProperty("file.separator") +"play.wav");
 
             //load map static images
-            brickImage = new Image("data/map/brick.png");
-            stoneImage = new Image("data/map/stone.png");
-            waterImage = new Image("data/map/water.png");
-            lpImage = new Image("data/map/LP.png");
-            cpImage = new Image("data/map/coin.png");
-            bulletImage=new Image("data/map/bullet.png");
+            brickImage = new Image("data"+System.getProperty("file.separator") +"map"+System.getProperty("file.separator") +"brick.png");
+            stoneImage = new Image("data"+System.getProperty("file.separator") +"map"+System.getProperty("file.separator") +"stone.png");
+            waterImage = new Image("data"+System.getProperty("file.separator") +"map"+System.getProperty("file.separator") +"water.png");
+            lpImage = new Image("data"+System.getProperty("file.separator") +"map"+System.getProperty("file.separator") +"LP.png");
+            cpImage = new Image("data"+System.getProperty("file.separator") +"map"+System.getProperty("file.separator") +"coin.png");
+            bulletImage=new Image("data"+System.getProperty("file.separator") +"map"+System.getProperty("file.separator") +"bullet.png");
 
 
 
             //load player images
-            myPlayerImg = new Image("data/sprites/up.png");
-            enemy1=new Image("data/sprites/enemy.png");
-            enemy2=new Image("data/sprites/enemy.png");
-            enemy3=new Image("data/sprites/enemy.png");
-            enemy4=new Image("data/sprites/enemy.png");
-            enemy5=new Image("data/sprites/enemy.png");
+            myPlayerImg = new Image("data"+System.getProperty("file.separator") +"sprites"+System.getProperty("file.separator") +"up.png");
+            enemy1=new Image("data"+System.getProperty("file.separator") +"sprites"+System.getProperty("file.separator") +"enemy.png");
+            enemy2=new Image("data"+System.getProperty("file.separator") +"sprites"+System.getProperty("file.separator") +"enemy.png");
+            enemy3=new Image("data"+System.getProperty("file.separator") +"sprites"+System.getProperty("file.separator") +"enemy.png");
+            enemy4=new Image("data"+System.getProperty("file.separator") +"sprites/enemy.png");
+            enemy5=new Image("data"+System.getProperty("file.separator") +"sprites"+System.getProperty("file.separator") +"enemy.png");
 
             painter = new ElementPainter(map, brickImage, stoneImage, waterImage, myPlayer, lpImage, cpImage,bulletImage);
             painter.setMyPlayerImage(myPlayerImg);
             painter.setEnemies(enemy1, enemy2, enemy3, enemy4,enemy5);
 
             //load the map
-            grassMap = new TiledMap("data/map/map.tmx");
+            grassMap = new TiledMap("data"+System.getProperty("file.separator") +"map"+System.getProperty("file.separator") +"map.tmx");
 
 
             //load fonts

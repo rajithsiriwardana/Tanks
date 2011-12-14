@@ -65,7 +65,7 @@ public class Welcome extends BasicGameState {
         //System.out.println(scp.getServerAddress());
         
         //load music
-        backMusic = new Music("data/music/welcome.wav");
+        backMusic = new Music("data"+System.getProperty("file.separator") +"music"+System.getProperty("file.separator") +"welcome.wav");
         // backMusic.play();
        
 

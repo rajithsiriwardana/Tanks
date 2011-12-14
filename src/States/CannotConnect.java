@@ -34,7 +34,7 @@ public class CannotConnect extends BasicGameState{
         this.game = sbg;
 
         //load music
-        backMusic = new Music("data/music/3.wav");
+        backMusic = new Music("data"+System.getProperty("file.separator") +"music"+System.getProperty("file.separator") +"3.wav");
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {

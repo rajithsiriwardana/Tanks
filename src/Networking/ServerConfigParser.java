@@ -32,7 +32,7 @@ public class ServerConfigParser {
     public ServerConfigParser()  {
         try {
             //location of the server config file
-            configFileLocation="data/server.info";
+            configFileLocation="data"+System.getProperty("file.separator") +"server.info";
             
             fstream = new FileInputStream(configFileLocation);
             in = new DataInputStream(fstream);
