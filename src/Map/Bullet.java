@@ -5,6 +5,11 @@
 
 package Map;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
+
 /**
  *
  * @author ishan
@@ -68,8 +73,15 @@ public class Bullet {
         iniTime=System.currentTimeMillis();
 
         destroyed=false;
-
-        //System.out.println("origin"+initX+", "+initY);
+        
+        //sounds
+        try {
+            
+            new Sound("data"+System.getProperty("file.separator") +"sounds"+System.getProperty("file.separator") +"shoot.wav").play();
+            
+        } catch (SlickException ex) {
+            Logger.getLogger(Bullet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 
