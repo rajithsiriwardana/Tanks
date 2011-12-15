@@ -4,6 +4,7 @@
  */
 package Controlling;
 
+import Bot.BotInterface;
 import Map.Brick;
 import Map.CoinPack;
 import Map.LifePack;
@@ -40,13 +41,19 @@ public class StringDecoder {
     private boolean startArrived;
     //to store the current game
     private StateBasedGame game;
+    
+    //ai
+    private BotInterface bi;
 
-    public StringDecoder(Map map) {
+    public StringDecoder(Map map, BotInterface bi) {
         this.map = map;
 
         initDecoded = false;
         startDecoded = false;
         startArrived = false;
+        
+         //ai
+       this.bi=bi;
 
 
     }
@@ -200,6 +207,16 @@ public class StringDecoder {
 
 
 
+        //set map to AI
+        bi.initializeMap(map.getStones(), map.getWater(), map.getBricks());
+        
+        bi.initMyPlayer(map.getMyPlayer());
+        bi.coinPilesSpawned(map.getCoinPacks());
+        bi.lifePacksSpawned(map.getLifePacks());
+        
+        //add my player to AI
+                
+         bi.AIStart();
 
 
 
@@ -357,6 +374,12 @@ public class StringDecoder {
 
 
 
+        //set ai
+        bi.coinPilesSpawned(map.getCoinPacks());
+        bi.lifePacksSpawned(map.getLifePacks());
+
+        bi.updateBrickHealth(map.getBricks());
+        bi.reSetPlayer(map.getMyPlayer());
 
 
 

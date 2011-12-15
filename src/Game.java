@@ -1,4 +1,5 @@
 
+import Bot.BotInterface;
 import Controlling.StringDecoder;
 import Controlling.StringGenerator;
 import Map.Map;
@@ -54,9 +55,7 @@ public class Game extends StateBasedGame {
         //create the map
         map = new Map();
 
-        //create the string decoder
-        decoder = new StringDecoder(map);
-
+        
 
 
 
@@ -71,8 +70,18 @@ public class Game extends StateBasedGame {
         outPort=scp.getServerOutPort();
         server=scp.getServerAddress();
         
+//        //create the string sender
+//        generator = new StringGenerator(outPort, server);
+        
         //create the string sender
         generator = new StringGenerator(outPort, server);
+        
+        BotInterface bi=new BotInterface();
+        bi.setStringGenerator(generator); 
+
+        //create the string decoder
+        decoder = new StringDecoder(map,bi);
+
 
         //create the string receiver
         receiver = new Receiver(inPort, decoder);
