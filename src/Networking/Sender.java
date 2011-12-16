@@ -44,7 +44,7 @@ public class Sender {
          *
          */
 
-        if (((counter + 1300) < System.currentTimeMillis())) {
+        if (((counter + 1200) < System.currentTimeMillis())) {
 
             counter = System.currentTimeMillis();
             allowed = true;

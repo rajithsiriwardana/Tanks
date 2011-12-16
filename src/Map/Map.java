@@ -244,6 +244,13 @@ public class Map {
 
                     }
                 }
+                
+                //if the player has shot a bullet
+        if(player.hasShot()){
+
+            Bullet bullet=new Bullet(player.getPlayerX(), player.getPlayerY(), player.getPlayerDir());
+            bullets.add(bullet);
+        }
 
             }
         }

@@ -73,6 +73,8 @@ public class Play extends BasicGameState {
     
     //side bar
     private Image sideBar;
+    
+   // private Image side;
 
 
     @Override
@@ -132,6 +134,7 @@ public class Play extends BasicGameState {
 
 
 
+       // side=new Image("/data/1.gif");
 
         } catch (SlickException ex) {
             Logger.getLogger(ElementPainter.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,6 +150,7 @@ public class Play extends BasicGameState {
         grassMap.render(mapX, mapY);
         grphcs.setFont(ttf);
         painter.draw(delta, grphcs);
+        //side.draw(700, 350);
         
         
 

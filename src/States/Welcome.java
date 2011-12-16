@@ -82,7 +82,7 @@ public class Welcome extends BasicGameState {
 
        grphcs.setColor(Color.green);
         
-       // back.draw(9, 0);
+        back.draw(9, 0);
 
 
         

@@ -4,6 +4,7 @@
  */
 package States;
 
+import Map.Map;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -24,6 +25,8 @@ public class GameOver extends BasicGameState {
     private StateBasedGame game;
     //for sound
     Music backMusic;
+    //map
+    private Map map;
 
     @Override
     public int getID() {
@@ -35,7 +38,7 @@ public class GameOver extends BasicGameState {
         this.game = sbg;
 
         //load music
-        backMusic = new Music("data"+System.getProperty("file.separator") +"music"+System.getProperty("file.separator") +"3.wav");
+        backMusic = new Music("data"+System.getProperty("file.separator") +"music"+System.getProperty("file.separator") +"gameOver.wav");
         // backMusic.play();
 
     }
@@ -65,5 +68,9 @@ public class GameOver extends BasicGameState {
             game.enterState(Play.id);
 
         }
+    }
+    
+    public void setMap(Map map) {
+        this.map = map;
     }
 }

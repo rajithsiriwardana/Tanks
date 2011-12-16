@@ -101,12 +101,13 @@ public class Game extends StateBasedGame {
 
 
         gameOver = new GameOver();
+        gameOver.setMap(map);
         cannotConnect=new CannotConnect();
 
 
-        addState(welcome);
-        addState(play);
-        addState(gameOver);
+//        addState(welcome);
+//        addState(play);
+//        addState(gameOver);
         addState(cannotConnect);
     }
 }
