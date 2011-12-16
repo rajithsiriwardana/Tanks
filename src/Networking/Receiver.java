@@ -79,7 +79,16 @@ public class Receiver implements Runnable {
                 }
 
             } catch (IOException ex) {
-                Logger.getLogger(Receiver.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(Receiver.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Receiver class error");
+                try {
+                    sSocket = new ServerSocket(inPort);
+                } catch (IOException ex1) {
+                    System.out.println("Receiver class error");
+                    Logger.getLogger(Receiver.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                
+                continue;
             }
 
         }

@@ -70,6 +70,10 @@ public class Play extends BasicGameState {
     private int delta;
     //music used in the game
     Music backMusic;
+    
+    //side bar
+    private Image sideBar;
+
 
     @Override
     public int getID() {
@@ -122,6 +126,9 @@ public class Play extends BasicGameState {
 
             //update the game of the string decoder
             decoder.setCurrentGame(sbg);
+            
+            //side bar
+        sideBar=new Image("data"+System.getProperty("file.separator") +"back"+System.getProperty("file.separator") +"1.jpg");
 
 
 
@@ -136,9 +143,12 @@ public class Play extends BasicGameState {
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
 
+        sideBar.draw(700, 0);
         grassMap.render(mapX, mapY);
         grphcs.setFont(ttf);
         painter.draw(delta, grphcs);
+        
+        
 
     }
 

@@ -88,8 +88,8 @@ public class Welcome extends BasicGameState {
         
         grphcs.drawString("Server setup | ", 20, 678);
         grphcs.drawString("Server IP: "+scp.getServerAddress(), 150, 678);
-        grphcs.drawString("| In port: "+scp.getServerInPort(), 340, 678);
-        grphcs.drawString("| Out port: "+scp.getServerOutPort(), 490, 678);
+        grphcs.drawString("| In port: "+scp.getServerInPort(), 350, 678);
+        grphcs.drawString("| Out port: "+scp.getServerOutPort(), 500, 678);
         
         
         

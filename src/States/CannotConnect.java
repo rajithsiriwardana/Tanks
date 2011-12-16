@@ -42,7 +42,7 @@ public class CannotConnect extends BasicGameState{
         backMusic = new Music("data"+System.getProperty("file.separator") +"music"+System.getProperty("file.separator") +"3.wav");
         
         //background
-        back=new Image("data"+System.getProperty("file.separator") +"back"+System.getProperty("file.separator") +"cann.jpg");
+        back=new Image("data"+System.getProperty("file.separator") +"back"+System.getProperty("file.separator") +"cannotConnect.jpg");
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {

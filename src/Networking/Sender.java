@@ -66,6 +66,7 @@ public class Sender {
             } catch (IOException ex) {
                 System.out.println("O.o");
                 Logger.getLogger(Sender.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
         }
 
