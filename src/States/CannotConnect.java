@@ -4,8 +4,10 @@
  */
 package States;
 
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
@@ -24,6 +26,9 @@ public class CannotConnect extends BasicGameState{
     private StateBasedGame game;
     //for sound
     Music backMusic;
+    
+    //background
+    private Image back;
 
     @Override
     public int getID() {
@@ -35,13 +40,18 @@ public class CannotConnect extends BasicGameState{
 
         //load music
         backMusic = new Music("data"+System.getProperty("file.separator") +"music"+System.getProperty("file.separator") +"3.wav");
+        
+        //background
+        back=new Image("data"+System.getProperty("file.separator") +"back"+System.getProperty("file.separator") +"cann.jpg");
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
-
-        grphcs.drawString("Sorry... Cannot connect to the server at the moment.", 500, 350);
         
-        grphcs.drawString("B - Move back to the main menu", 100, 500);
+        back.draw(9, 0);
+
+       // grphcs.drawString("Sorry... Cannot connect to the server at the moment.", 500, 350);
+        
+       // grphcs.drawString("B - Move back to the main menu", 100, 500);
         
 
     }
