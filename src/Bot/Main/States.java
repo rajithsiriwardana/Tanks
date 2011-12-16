@@ -35,8 +35,7 @@ public class States {
 
     public States(BarricadeMap map){
         
-        this.map=map;
-        //this.me=me;
+        this.map=map;        
         playerSet=false;
         Mode=0;
         

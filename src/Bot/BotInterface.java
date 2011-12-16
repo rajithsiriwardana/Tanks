@@ -51,7 +51,6 @@ public class BotInterface {
         
         if(mapInitialized&&sGeneratorInitialized&&playerInitialized){
             
-            System.out.println("AI Started");
             
             Bot=new Thread(AI);
             Bot.start();
@@ -97,7 +96,7 @@ public class BotInterface {
         while(i.hasNext()){            
             Water block=i.next();
             Node node=new Node(block.getxLocation(),block.getyLocation());
-            node.setWeight(100000);
+            node.setWeight(10000);
             AI.initMapBlock(node);
             //map[block.getxLocation()][block.getyLocation()].setWeight(1000);
             
@@ -107,7 +106,7 @@ public class BotInterface {
         while(j.hasNext()){            
             Stone block=j.next();
             Node node=new Node(block.getxLocation(),block.getyLocation());
-            node.setWeight(100000);
+            node.setWeight(10000);
             AI.initMapBlock(node);
             //map[block.getxLocation()][block.getyLocation()].setWeight(1000);
                   
@@ -134,7 +133,7 @@ public class BotInterface {
     public void reSetPlayer(Player me){                                                         //must reset with every general update
         
         AI.resetPlayer(me.getPlayerX(),me.getPlayerY(),me.getPlayerDir(),me.getHealth());
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~"+me.getPlayerX()+","+me.getPlayerY());
+        
         
         
     }

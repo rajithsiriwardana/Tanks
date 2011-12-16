@@ -10,6 +10,7 @@ import Networking.ServerConfigParser;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
@@ -40,6 +41,9 @@ public class Welcome extends BasicGameState {
     
     //for music
     Music backMusic;
+    
+    //background
+    private Image back;
 
     @Override
     public int getID() {
@@ -67,24 +71,27 @@ public class Welcome extends BasicGameState {
         //load music
         backMusic = new Music("data"+System.getProperty("file.separator") +"music"+System.getProperty("file.separator") +"welcome.wav");
         // backMusic.play();
+        
+        //background
+        back=new Image("data"+System.getProperty("file.separator") +"back"+System.getProperty("file.separator") +"welcome.jpg");
        
 
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
 
-        grphcs.setColor(Color.green);
-        grphcs.drawString("Welcome", 650, 100);
+       grphcs.setColor(Color.green);
         
-        
+       // back.draw(9, 0);
 
-        grphcs.setColor(Color.white);
-        grphcs.drawString("Press Enter to start the game", 550, 300);
+
         
-        grphcs.drawString("Current server setup:", 100, 400);
-        grphcs.drawString("Server: "+scp.getServerAddress(), 120, 450);
-        grphcs.drawString("In port: "+scp.getServerInPort(), 120, 470);
-        grphcs.drawString("Out port: "+scp.getServerOutPort(), 120, 490);
+        grphcs.drawString("Server setup | ", 20, 678);
+        grphcs.drawString("Server IP: "+scp.getServerAddress(), 150, 678);
+        grphcs.drawString("| In port: "+scp.getServerInPort(), 340, 678);
+        grphcs.drawString("| Out port: "+scp.getServerOutPort(), 490, 678);
+        
+        
         
         
         

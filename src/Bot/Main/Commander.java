@@ -10,7 +10,7 @@ import Bot.PathFinder.Path;
 import Controlling.StringGenerator;
 import Map.BonusElement;
 import Map.CoinPack;
-import java.util.ArrayList;
+import Map.LifePack;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -25,16 +25,13 @@ public class Commander implements Runnable{
     private States currentStates;
     private boolean stop;
     private AStar pathFinder;
-    private ArrayList coinPile;
-    private ArrayList healthPack;
     private PriorityList orderedList;
     private PriorityList goals;
     
     
     public Commander(BarricadeMap map){
         
-    this.map=map;    
-    //this.currentStates=currentStates;
+    this.map=map;        
     this.stop=false;
     pathFinder=new AStar();
         
@@ -42,39 +39,51 @@ public class Commander implements Runnable{
 
     public void run() {
         
-       // System.out.println("fucker");
+       
         while(!stop){
             
-            
-            //System.out.println("Asshole");
-            //System.out.println(currentStates.isPlayerReset());
             if(currentStates.isPlayerReset()){
-                //System.out.println("w");
+                
                 if(currentStates.getMode()==2){
                     
-                    //System.out.println("2");
                     pythagorianDistCoins(currentStates.getCoinPiles());
+                    
+                    System.out.println("xxxxx");
+                    LinkedList g=new LinkedList(currentStates.getCoinPiles());
+                         while(!g.isEmpty()){
+                        CoinPack d=(CoinPack)g.removeFirst();
+                        System.out.print((d).getxLocation()+","+(d).getyLocation());
+                        System.out.print(";;");
+
+            
+                        }
+                    System.out.println("xxxxx");
+                    
                     calculatePath();
                     issueCommand();
                     
                 }
-               /* else if(currentStates.getMode()==3){
+                else if(currentStates.getMode()==3){
                     
                     pythagorianDistHPacks(currentStates.getHealthPacks());
+                    calculatePath();
+                    issueCommand();
+                    
                 }else if(currentStates.getMode()==1){
-                    //System.out.println("Idling");
-                }*/
+                    
+                }
                 else {
-                    //System.out.print("I");
+                    System.out.println("Idling");
                 }
                 
                 
                 
                 currentStates.setPlayerReset(false);
-                System.out.println("AAAAAAAAAAxxxxAAAAAAAAAAAAAAAAAAa");
+               
             }
             else {
-               // System.out.println("waiting for general update");
+               
+               
                 int i=0;
                  while(i<800){
                      i+=i;
@@ -90,14 +99,47 @@ public class Commander implements Runnable{
     
     private void issueCommand(){
         
-        Path p=(Path)goals.removeFirst();
+         if(!goals.isEmpty()){
+        Path p=(Path)goals.getFirst();
         LinkedList<Node> n=(p).getPath();
+        LinkedList<Node> q=new LinkedList((p).getPath());
+        
+
+        while(!q.isEmpty()){
+            Node d=q.removeFirst();
+            System.out.print((d).getX()+","+(d).getY());
+            System.out.print(";;");
+
+            
+        }
+             System.out.println("");
+        
         
         Node next=n.getFirst();
         System.out.println("-------"+currentStates.getMe().getPlayerX()+","+currentStates.getMe().getPlayerY());
         System.out.println(next.getX()+","+next.getY()+"++++"+next.getCostFromStart());
         int nextDir=direction(next);
         
+        
+        if(next.getWeight()>1){                                                                                     //fire brickwalls
+            if(currentStates.getMe().getPlayerDir()==nextDir){
+                    
+                sGen.shoot();
+                
+            }else {
+                giveDirection(nextDir);
+            }
+        }
+        else giveDirection(nextDir);
+        
+        }else {
+            sGen.shoot();                               //caseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        }
+        
+        
+         
+    }
+        private void giveDirection(int nextDir){
         
         if(nextDir==0){ sGen.goUp(); System.out.println("UP");
         }
@@ -108,29 +150,42 @@ public class Commander implements Runnable{
         else if(nextDir==3){sGen.goLeft(); System.out.println("Left");
         }
         
-        
-         
     }
     
     
-    
-     private void calculatePath(){                      //without adding directional costs
+     private void calculatePath(){                      
          
  
          int i=0;
          goals=new PriorityList();
          while(i<5&&(!orderedList.isEmpty())){
-             Object ob=orderedList.removeFirst();
+             Object ob=orderedList.removeFirst();         
+             
+             
              Path path=pathFinder.findPath(map.getMap()[currentStates.getMe().getPlayerX()][currentStates.getMe().getPlayerY()], map.getMap()[(((BonusElement)((PythagorianNode)(ob)).getElement()).getxLocation())][(((BonusElement)((PythagorianNode)(ob)).getElement()).getyLocation())]);            
-
              if(!((currentStates.getMe().getPlayerX()==(((BonusElement)((PythagorianNode)(ob)).getElement()).getxLocation()))&& (currentStates.getMe().getPlayerY()==(((BonusElement)((PythagorianNode)(ob)).getElement()).getyLocation())))){
+                
+                 
+                 //additional
+                        LinkedList q=new LinkedList(path.getPath());
+                        while(!q.isEmpty()){
+                        Node d=(Node)q.removeFirst();
+                        System.out.print((d).getX()+","+(d).getY());
+                        System.out.print(";;");
+
+            
+                        }
+                 
+                 System.out.println("$$$$$$$$$$$$$$$$$$$$$$$");
+                 
+                 
+                 
+                 path.addCost(addDirCost(currentStates.getMe().getPlayerDir(),direction((Node)((path.getPath()).getFirst()))));
                  goals.add(path);
                  i++;
              }
              
-             //             goals.add(path);
-//             //System.out.println(path);
-//             i++;
+             
              
          }
          
@@ -139,6 +194,15 @@ public class Commander implements Runnable{
          
          
      }
+     
+    private int addDirCost(int dir1,int dir2){
+        
+        if(dir1!=dir2) {
+            return 1;
+        }
+        else return 0;
+        
+    }
     
      public void setSGenerator(StringGenerator sGen){ this.sGen=sGen; }
      public void commanderStop() { stop = true; }
@@ -148,6 +212,25 @@ public class Commander implements Runnable{
      */
     public void setCurrentStates(States currentStates) {
         this.currentStates = currentStates;
+    }
+    
+    
+    private void pythagorianDistHPacks(LinkedList <LifePack> cPack){
+        Iterator <LifePack> i=cPack.iterator();
+        int tempX;
+        int tempY;
+        int tempDist;
+        orderedList =new PriorityList();
+        while(i.hasNext()){
+            LifePack hPile= i.next();
+            tempX=(hPile.getxLocation()-currentStates.getMe().getPlayerX());
+            tempY=(hPile.getyLocation()-currentStates.getMe().getPlayerY());
+            tempDist=(int)Math.round(Math.sqrt((tempX*tempX)+(tempY*tempY)));
+            PythagorianNode nNode=new PythagorianNode(tempDist,hPile);
+            orderedList.add(nNode);
+            
+        }
+        //return orderedList;
     }
     
     private void pythagorianDistCoins(LinkedList <CoinPack> cPack){

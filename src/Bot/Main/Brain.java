@@ -44,43 +44,25 @@ public class Brain implements Runnable{
         
        commanderStart();
         while(!stop){
-//            if((currentStates.getOtherBots().isEmpty())&&((currentStates.getCoinPiles()).isEmpty())&&((currentStates.getHealthPacks()).isEmpty())){
-//                currentStates.setMode(0);
-//            }
-//            else if((!(currentStates.getOtherBots().isEmpty()))&&((currentStates.getCoinPiles()).isEmpty())&&((currentStates.getHealthPacks()).isEmpty())){
-//                currentStates.setMode(1);
-//            }
-//            else if((((currentStates.getMe()).getHealth())<50)&&(!((currentStates.getHealthPacks()).isEmpty()))){
-//                currentStates.setMode(3);
-//            }
-//            else if(!(currentStates.getCoinPiles().isEmpty())){
-//                currentStates.setMode(2);
-//            }else {
-//                currentStates.setMode(3);
-//                
-//            }
             
             
-            ////
-              if(((currentStates.getCoinPiles()).isEmpty())&&((currentStates.getHealthPacks()).isEmpty())){
-                  //System.out.println("Mode set to 0");
-                currentStates.setMode(0);
+            if(((currentStates.getOtherBots()==null||currentStates.getOtherBots().isEmpty()))&&((currentStates.getCoinPiles()).isEmpty())&&((currentStates.getHealthPacks()).isEmpty())){
+              currentStates.setMode(0);
             }
-//            else if((!(currentStates.getOtherBots().isEmpty()))&&((currentStates.getCoinPiles()).isEmpty())&&((currentStates.getHealthPacks()).isEmpty())){
-//                currentStates.setMode(1);
-//            }
+            else if(((currentStates.getOtherBots()!=null)&&!(currentStates.getOtherBots().isEmpty()))&&((currentStates.getCoinPiles()).isEmpty())&&((currentStates.getHealthPacks()).isEmpty())){
+                currentStates.setMode(1);
+            }
             else if((((currentStates.getMe()).getHealth())<50)&&(!((currentStates.getHealthPacks()).isEmpty()))){
-                //System.out.println("Mode set to 3");
                 currentStates.setMode(3);
             }
             else if(!(currentStates.getCoinPiles().isEmpty())){
-                //System.out.println("Mode set to 2");
                 currentStates.setMode(2);
             }else {
                 currentStates.setMode(3);
-               // System.out.println("Mode set to 3-default");
                 
             }
+           
+
             
         }
         commander.commanderStop();
