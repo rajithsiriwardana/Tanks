@@ -32,6 +32,9 @@ public class BotInterface {
     private boolean sGeneratorInitialized;
     private boolean playerInitialized;
     private Thread Bot;
+    private LinkedList <Node> mapBots;
+    private boolean setMapBots;
+
     
     public BotInterface(){
         
@@ -39,7 +42,8 @@ public class BotInterface {
         mapInitialized=false;
         sGeneratorInitialized=false;
         playerInitialized=false;
-        
+        mapBots=new LinkedList<Node>();
+        setMapBots=false;
         //
         AI=new Brain();
         
@@ -86,7 +90,8 @@ public class BotInterface {
             Brick brick=i.next();            
             //map[brick.getxLocation()][brick.getyLocation()].setWeight(5-brick.getHealth());        
             Node node=new Node(brick.getxLocation(),brick.getyLocation());
-            node.setWeight(5-brick.getHealth());                                                    //need to verify
+            node.setWeight(5-brick.getHealth());   
+            AI.initMapBlock(node);//need to verify
         }
         
     }
@@ -96,7 +101,7 @@ public class BotInterface {
         while(i.hasNext()){            
             Water block=i.next();
             Node node=new Node(block.getxLocation(),block.getyLocation());
-            node.setWeight(10000);
+            node.setWeight(1100);
             AI.initMapBlock(node);
             //map[block.getxLocation()][block.getyLocation()].setWeight(1000);
             
@@ -106,7 +111,7 @@ public class BotInterface {
         while(j.hasNext()){            
             Stone block=j.next();
             Node node=new Node(block.getxLocation(),block.getyLocation());
-            node.setWeight(10000);
+            node.setWeight(1200);
             AI.initMapBlock(node);
             //map[block.getxLocation()][block.getyLocation()].setWeight(1000);
                   
@@ -146,14 +151,56 @@ public class BotInterface {
             
     public void setOtherBots(LinkedList <Player> bots){                                 //must be reset with every general update
         
+        
+        
+        reSetMapBots();  
+
+        
+        
+        
         ArrayList <BotInfo>vec=new ArrayList();
         Iterator <Player>i= bots.iterator();
         while(i.hasNext()){
+            
             Player players=i.next();
             BotInfo bot=new BotInfo(players.getPlayerX(),players.getPlayerY(),players.getPlayerDir(),players.getHealth(),players.getIndex());
+            Node d=new Node(bot.getPlayerX(),bot.getPlayerY());
+            d.setWeight(1000);
+            AI.initMapBlock(d);
             vec.add(bot);
+            
+            
+            
+           // System.out.print("; "+d.getX()+","+d.getY());
+            mapBots.addFirst(d);
+            
         }
+        setMapBots=true;
+       // System.out.println("changed bots: 1000");
         AI.setOtherBots(vec);
         
     }
+    
+    private void reSetMapBots(){
+        
+            if(setMapBots){
+            while(!mapBots.isEmpty()){
+                
+                Node p=mapBots.removeFirst();
+                //Node n=new Node(p.getPlayerX(),p.getPlayerY());
+                p.setWeight(1);
+                AI.initMapBlock(p);
+               // System.out.print("; "+p.getX()+","+p.getY());
+            }
+           // System.out.println("resetting bots: 1");
+            setMapBots=false;
+        }
+        
+               
+        
+        
+        
+    }
+    
+    
 }

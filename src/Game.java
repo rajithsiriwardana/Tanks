@@ -105,9 +105,9 @@ public class Game extends StateBasedGame {
         cannotConnect=new CannotConnect();
 
 
-//        addState(welcome);
-//        addState(play);
-//        addState(gameOver);
-        addState(cannotConnect);
+      addState(welcome);
+        addState(play);
+        addState(gameOver);
+       addState(cannotConnect);
     }
 }

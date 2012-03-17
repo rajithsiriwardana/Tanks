@@ -47,18 +47,6 @@ public class Commander implements Runnable{
                 if(currentStates.getMode()==2){
                     
                     pythagorianDistCoins(currentStates.getCoinPiles());
-                    
-                    System.out.println("xxxxx");
-                    LinkedList g=new LinkedList(currentStates.getCoinPiles());
-                         while(!g.isEmpty()){
-                        CoinPack d=(CoinPack)g.removeFirst();
-                        System.out.print((d).getxLocation()+","+(d).getyLocation());
-                        System.out.print(";;");
-
-            
-                        }
-                    System.out.println("xxxxx");
-                    
                     calculatePath();
                     issueCommand();
                     
@@ -70,22 +58,21 @@ public class Commander implements Runnable{
                     issueCommand();
                     
                 }else if(currentStates.getMode()==1){
-                    
+                    shootOtherBots();
+                    //System.out.println("mode shooting");
                 }
                 else {
                     System.out.println("Idling");
                 }
                 
                 
-                
-                currentStates.setPlayerReset(false);
-               
+                currentStates.setPlayerReset(false);               
             }
             else {
                
                
                 int i=0;
-                 while(i<800){
+                 while(i<700){
                      i+=i;
                      i++;
                  }
@@ -97,43 +84,127 @@ public class Commander implements Runnable{
        
     }
     
+    private void shootOtherBots(){
+        
+        int x=currentStates.getMe().getPlayerX();
+        int y=currentStates.getMe().getPlayerY();
+        int dir=currentStates.getMe().getPlayerDir();
+        
+        int temp=x+1;
+        while(temp<currentStates.getMap().getSize()){
+            
+            if((((currentStates.getMap().getMap()))[temp][y]).getWeight()==1200){  break;  }
+            else if((((currentStates.getMap().getMap()))[temp][y]).getWeight()==1000){
+                
+                issueShootCommand(temp,y,dir);
+                break;
+            }
+            temp++;
+        }
+        temp=x-1;
+        while(temp>=0){
+            
+            if((((currentStates.getMap().getMap()))[temp][y]).getWeight()==1200){  break;  }
+            else if((((currentStates.getMap().getMap()))[temp][y]).getWeight()==1000){
+                
+                issueShootCommand(temp,y,dir);
+                break;
+            }            
+            temp--;
+        }
+        
+        temp=y+1;
+        while(temp<currentStates.getMap().getSize()){
+            
+            if((((currentStates.getMap().getMap()))[x][temp]).getWeight()==1200){  break;  }
+            else if((((currentStates.getMap().getMap()))[x][temp]).getWeight()==1000){
+                
+                issueShootCommand(x,temp,dir);
+                break;
+            }temp++;            
+            
+        }        
+        temp=y-1;
+        while(temp>=0){
+            
+            if((((currentStates.getMap().getMap()))[x][temp]).getWeight()==1200){  break;  }
+            else if((((currentStates.getMap().getMap()))[x][temp]).getWeight()==1000){
+                
+                issueShootCommand(x,temp,dir);
+                break;
+            }temp--;            
+            
+        }        
+        
+        sGen.shoot();                               //don't need
+        
+    }
+    
+    
+    private void issueShootCommand(int x,int y,int PlayerDir){
+        
+        int dir=shootingDirection(x,y);
+        if(PlayerDir!=dir){
+            
+                    if(dir==0){ sGen.goUp();}                         //north
+                    else if(dir==2){sGen.goDown();}                      //South
+                    else if(dir==3){sGen.goLeft();}                     //west
+                    else if(dir==1){sGen.goRight();}                      //east
+                           
+        }
+        else sGen.shoot();
+        
+        
+    }
+    
+    private int shootingDirection(int xCor,int yCor){
+        
+        int x=sign(xCor-currentStates.getMe().getPlayerX());
+        int y=sign(yCor-currentStates.getMe().getPlayerX());
+        
+        if(x==0&&y==-1){ return 0;}                         //north
+        else if(x==0&&y==1){return 2;}                      //South
+        else if(x==-1&&y==0){return 3;}                     //west
+        else if(x==1&&y==0){return 1;}                      //east
+        
+        else return -1;
+        
+        
+    }
+    
+     private int sign(int num){
+        
+        if(num<0){ return -1;}
+        else if(num==0){return 0;}
+        else return 1;
+    
+     }
+    
     private void issueCommand(){
         
-         if(!goals.isEmpty()){
+        if(!goals.isEmpty()){
         Path p=(Path)goals.getFirst();
         LinkedList<Node> n=(p).getPath();
-        LinkedList<Node> q=new LinkedList((p).getPath());
-        
-
-        while(!q.isEmpty()){
-            Node d=q.removeFirst();
-            System.out.print((d).getX()+","+(d).getY());
-            System.out.print(";;");
-
-            
-        }
-             System.out.println("");
-        
-        
+ 
         Node next=n.getFirst();
-        System.out.println("-------"+currentStates.getMe().getPlayerX()+","+currentStates.getMe().getPlayerY());
-        System.out.println(next.getX()+","+next.getY()+"++++"+next.getCostFromStart());
         int nextDir=direction(next);
         
         
         if(next.getWeight()>1){                                                                                     //fire brickwalls
-            if(currentStates.getMe().getPlayerDir()==nextDir){
-                    
+            if(currentStates.getMe().getPlayerDir()==nextDir){                    
                 sGen.shoot();
                 
             }else {
-                giveDirection(nextDir);
+                giveDirection(nextDir);                
             }
         }
-        else giveDirection(nextDir);
+        else {
+            giveDirection(nextDir);            
+        }
         
         }else {
-            sGen.shoot();                               //caseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+             
+            sGen.shoot();                               
         }
         
         
@@ -163,22 +234,8 @@ public class Commander implements Runnable{
              
              
              Path path=pathFinder.findPath(map.getMap()[currentStates.getMe().getPlayerX()][currentStates.getMe().getPlayerY()], map.getMap()[(((BonusElement)((PythagorianNode)(ob)).getElement()).getxLocation())][(((BonusElement)((PythagorianNode)(ob)).getElement()).getyLocation())]);            
-             if(!((currentStates.getMe().getPlayerX()==(((BonusElement)((PythagorianNode)(ob)).getElement()).getxLocation()))&& (currentStates.getMe().getPlayerY()==(((BonusElement)((PythagorianNode)(ob)).getElement()).getyLocation())))){
+             if(!((currentStates.getMe().getPlayerX()==(((BonusElement)((PythagorianNode)(ob)).getElement()).getxLocation()))&& (currentStates.getMe().getPlayerY()==(((BonusElement)((PythagorianNode)(ob)).getElement()).getyLocation())))&&path.getCost()<1000){
                 
-                 
-                 //additional
-                        LinkedList q=new LinkedList(path.getPath());
-                        while(!q.isEmpty()){
-                        Node d=(Node)q.removeFirst();
-                        System.out.print((d).getX()+","+(d).getY());
-                        System.out.print(";;");
-
-            
-                        }
-                 
-                 System.out.println("$$$$$$$$$$$$$$$$$$$$$$$");
-                 
-                 
                  
                  path.addCost(addDirCost(currentStates.getMe().getPlayerDir(),direction((Node)((path.getPath()).getFirst()))));
                  goals.add(path);
@@ -230,7 +287,7 @@ public class Commander implements Runnable{
             orderedList.add(nNode);
             
         }
-        //return orderedList;
+      
     }
     
     private void pythagorianDistCoins(LinkedList <CoinPack> cPack){
@@ -248,7 +305,7 @@ public class Commander implements Runnable{
             orderedList.add(nNode);
             
         }
-        //return orderedList;
+      
     }
     
         private int direction(Node next){

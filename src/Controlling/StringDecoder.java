@@ -124,27 +124,27 @@ public class StringDecoder {
 
         }else if (firstLetter.equalsIgnoreCase("PLAYERS_FULL#")) {
             System.out.println("PLAYERS_FULL#");
-            bi.AIStop();
+           // bi.AIStop();
             game.enterState(CannotConnect.id, new FadeOutTransition(Color.red), new FadeInTransition(Color.black));
 
         }else if (firstLetter.equalsIgnoreCase("NOT_A_VALID_CONTESTANT#")) {
             System.out.println("NOT_A_VALID_CONTESTANT#");
-            bi.AIStop();
+            //bi.AIStop();
             game.enterState(CannotConnect.id, new FadeOutTransition(Color.red), new FadeInTransition(Color.black));
 
         }else if (firstLetter.equalsIgnoreCase("GAME_FINISHED#")) {
             System.out.println("GAME_FINISHED#");
-            bi.AIStop();
+           // bi.AIStop();
             game.enterState(GameOver.id, new FadeOutTransition(Color.red), new FadeInTransition(Color.black));
 
         }else if (firstLetter.equalsIgnoreCase("GAME_HAS_FINISHED#")) {
             System.out.println("GAME_HAS_FINISHED#");
-            bi.AIStop();
+           // bi.AIStop();
             game.enterState(GameOver.id, new FadeOutTransition(Color.red), new FadeInTransition(Color.black));
 
         }else if (firstLetter.equalsIgnoreCase("GAME_ALREADY_STARTED#")) {
             System.out.println("GAME_ALREADY_STARTED#");
-            bi.AIStop();
+          //  bi.AIStop();
             game.enterState(CannotConnect.id, new FadeOutTransition(Color.red), new FadeInTransition(Color.black));
 
         }
@@ -348,7 +348,7 @@ public class StringDecoder {
                 }
 
                 //player.setIndex(index);
-                System.out.println("player"+index+" shot");
+               // System.out.println("player"+index+" shot");
 
                 map.updateContestant(player);
 

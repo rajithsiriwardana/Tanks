@@ -68,9 +68,9 @@ public class BarricadeMap {
     private void setNodes(){
         
         
-        for(int x=0;x<size;x++){
+        for(int x=0;x<getSize();x++){
             
-            for(int y=0;y<size;y++){
+            for(int y=0;y<getSize();y++){
                 
                 Node n=new Node(x,y);
 
@@ -88,22 +88,29 @@ public class BarricadeMap {
     
     private void setNeighbours(){
         
-        for(int x=0;x<size;x++){
+        for(int x=0;x<getSize();x++){
             
-            for(int y=0;y<size;y++){    
+            for(int y=0;y<getSize();y++){    
         
                 LinkedList list=new LinkedList();
                 
                 if(x!=0){ list.add(map[x-1][y]); }
-                if(x!=(size-1)){ list.add(map[x+1][y]); }
+                if(x!=(getSize()-1)){ list.add(map[x+1][y]); }
                 if(y!=0){ list.add(map[x][y-1]); }
-                if(y!=(size-1)){ list.add(map[x][y+1]); }
+                if(y!=(getSize()-1)){ list.add(map[x][y+1]); }
      
   
                 map[x][y].setNeighbours(list);
                 
             }
         }
+    }
+
+    /**
+     * @return the size
+     */
+    public int getSize() {
+        return size;
     }
     
     

@@ -138,6 +138,8 @@ public class ElementPainter {
 
         this.graphics = graphics;
         
+        graphics.setColor(Color.white);
+        
         
 
 
@@ -163,7 +165,9 @@ public class ElementPainter {
             while ((brick) != null) {
 
                 if (!brick.isDestroyed()) {
+                    graphics.setColor(Color.black);
                     drawBrick(brick);
+                    graphics.setColor(Color.white);
                     //mark the location as occupied
                     obsMat[brick.getxLocation()][brick.getyLocation()]=1;
                 }
@@ -828,13 +832,15 @@ public class ElementPainter {
         cpImage.draw(x, y);
 
 
+        graphics.setColor(Color.black);
 
-        graphics.drawString("" + cp.getAmount(), x, y);
+        graphics.drawString(" " + cp.getAmount(), x, y);
 
 
         //graphics.setFont(uFont);
 
         graphics.drawString("" + cp.timeLeft(), x, y + 10);
+        graphics.setColor(Color.white);
 
     }
 
@@ -847,7 +853,7 @@ public class ElementPainter {
         float x = converter(brick.getxLocation());
         float y = converter(brick.getyLocation());
         brickImage.draw(x, y);
-        graphics.drawString("" + brick.getHealth(), x + 10f, y + 10f);
+        graphics.drawString("" + brick.getHealth(), x + 14f, y + 10f);
 
     }
 
@@ -886,7 +892,7 @@ public class ElementPainter {
      */
     private void drawSideBar(){
         
-        int tableX=0;
+        int tableX=850;
         int tableY=100;
         int width=50;
         int height=30;
@@ -899,20 +905,20 @@ public class ElementPainter {
 
         //graphics.drawString("The GAME", 900, 100);
         
-        ttfTitle.drawString(950, 22, "The GAME", Color.yellow) ;
+        ttfTitle.drawString(950, 22, "TANKS", Color.yellow) ;
         
         //print table headings
         
-        ttfScore.drawString(800 + (width * 2)-10, tableY-height, "Coins", Color.white);
+        ttfScore.drawString(tableX + (width * 2)-10, tableY-height, "Coins", Color.white);
         
-        ttfScore.drawString(800 + (width * 4)-10, tableY-height, "Health", Color.white);
+        ttfScore.drawString(tableX + (width * 4)-10, tableY-height, "Health", Color.white);
         
         
         //ttfScore.drawString( 800 + 500/4 * 0, tableY+(myPlayer.getIndex()*width),"Scorpio:   \t\t\t"+myPlayer.getCoins()+"        \t\t\t"+myPlayer.getHealth(), Color.lightGray);
         
-        ttfScore.drawString(800 + width * 0, tableY + (myPlayer.getIndex() * height), "Scorpio", Color.lightGray);
-        ttfScore.drawString(800 + width * 2, tableY + (myPlayer.getIndex() * height), Integer.toString(myPlayer.getCoins()), Color.lightGray);
-        ttfScore.drawString(800 + width * 4, tableY+(myPlayer.getIndex()*height),Integer.toString(myPlayer.getHealth()), Color.lightGray);
+        ttfScore.drawString(tableX + width * 0, tableY + (myPlayer.getIndex() * height), "Scorpio", Color.lightGray);
+        ttfScore.drawString(tableX + width * 2, tableY + (myPlayer.getIndex() * height), Integer.toString(myPlayer.getCoins()), Color.lightGray);
+        ttfScore.drawString(tableX + width * 4, tableY+(myPlayer.getIndex()*height),Integer.toString(myPlayer.getHealth()), Color.lightGray);
        // f1ttf.drawString(800, 300, "Othre font", Color.yellow);
         
         //ff.drawString(600, 300, "TST",Color.green);
@@ -944,14 +950,14 @@ public class ElementPainter {
                 
                
                //graphics.drawString("Player"+player.getIndex()+":   \t\t\t"+player.getCoins()+"   \t\t\t"+player.getHealth(), 800 + 500/4 * 0, tableY+(player.getIndex()*20));
-               ttfScore.drawString( 800 + width*0, tableY+(player.getIndex()*height),"Player"+player.getIndex(), Color.lightGray);
-               ttfScore.drawString( 800 + width * 2, tableY+(player.getIndex()*height),Integer.toString(player.getCoins()), Color.lightGray);
+               ttfScore.drawString( tableX + width*0, tableY+(player.getIndex()*height),"Player"+player.getIndex(), Color.lightGray);
+               ttfScore.drawString( tableX + width * 2, tableY+(player.getIndex()*height),Integer.toString(player.getCoins()), Color.lightGray);
                
                if(player.isAlive()){
-                   ttfScore.drawString( 800 + width * 4, tableY+(player.getIndex()*height),Integer.toString(player.getHealth()), Color.lightGray);
+                   ttfScore.drawString( tableX + width * 4, tableY+(player.getIndex()*height),Integer.toString(player.getHealth()), Color.lightGray);
                }
                if(!player.isAlive()){
-                   ttfScore.drawString( 800 + width * 4, tableY+(player.getIndex()*height),"Dead", Color.red);
+                   ttfScore.drawString( tableX + width * 4, tableY+(player.getIndex()*height),"Dead", Color.red);
                }
                
                

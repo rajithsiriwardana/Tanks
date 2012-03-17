@@ -24,8 +24,7 @@ public class Brain implements Runnable{
     private States currentStates;
     private BarricadeMap map;
     private Commander commander;
-    private boolean stateSet;
-   // private BotInfo player;
+    private boolean stateSet;   
     private boolean commanderStateSet;
     private boolean stringGenSet;
     
@@ -33,7 +32,7 @@ public class Brain implements Runnable{
         
         stop=false;
         stateSet=false;
-        map=new BarricadeMap(20);        
+        map=new BarricadeMap(10);        
         commander=new Commander(map);
         stringGenSet=false;
         commanderStateSet=false;
@@ -49,16 +48,17 @@ public class Brain implements Runnable{
             if(((currentStates.getOtherBots()==null||currentStates.getOtherBots().isEmpty()))&&((currentStates.getCoinPiles()).isEmpty())&&((currentStates.getHealthPacks()).isEmpty())){
               currentStates.setMode(0);
             }
-            else if(((currentStates.getOtherBots()!=null)&&!(currentStates.getOtherBots().isEmpty()))&&((currentStates.getCoinPiles()).isEmpty())&&((currentStates.getHealthPacks()).isEmpty())){
+            else if(((currentStates.getOtherBots()!=null)&&(!(currentStates.getOtherBots().isEmpty())))&&((currentStates.getCoinPiles()).isEmpty())&&((currentStates.getHealthPacks()).isEmpty())){
                 currentStates.setMode(1);
             }
-            else if((((currentStates.getMe()).getHealth())<50)&&(!((currentStates.getHealthPacks()).isEmpty()))){
+            else if((((currentStates.getMe()).getHealth())<80)&&(!((currentStates.getHealthPacks()).isEmpty()))){
                 currentStates.setMode(3);
             }
             else if(!(currentStates.getCoinPiles().isEmpty())){
                 currentStates.setMode(2);
             }else {
                 currentStates.setMode(3);
+                
                 
             }
            
@@ -91,7 +91,7 @@ public class Brain implements Runnable{
       
        currentStates=new States(map);
        currentStates.initPlayer(playerX,playerY,playerDir,playerHealth,index);
-      //player=new BotInfo(playerX,playerY,playerDir,playerHealth,index); 
+       //player=new BotInfo(playerX,playerY,playerDir,playerHealth,index); 
      
       stateSet=true;
       setCommanderStates();
@@ -128,7 +128,8 @@ public class Brain implements Runnable{
       //player.setPlayerDir(dir);
      // player.setHealth(health);
       
-      System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
+      //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
+      //System.out.println("Time       "+System.currentTimeMillis());
       currentStates.setPlayerReset(true);            //After issuing command this must be set to false
       //setCommanderStates();
       

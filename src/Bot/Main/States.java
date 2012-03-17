@@ -51,8 +51,9 @@ public class States {
         
         me.setPlayerX(x);
         me.setPlayerY(y);
-        me.setIndex(dir);
+        me.setPlayerDir(dir);
         me.setHealth(health);
+      
         
     }
     
